@@ -1,0 +1,4 @@
+".main_sponsors": {
+	width : Ti.UI.FILL,
+	height : Ti.UI.FILL
+}

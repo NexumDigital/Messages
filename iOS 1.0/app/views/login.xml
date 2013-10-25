@@ -1,0 +1,16 @@
+<Alloy>
+	<View class="login">
+		<View class="start">
+			<ImageView class="logo" />
+			<Button class="signin" onSingletap="signinTap" />
+		</View>
+		<View id="webview" class="webview">
+			<View class="status_bar" />
+			<WebView id="twitter" class="twitter" />
+			<View class="info">
+				<View class="border_top" />
+				<Button class="close" onSingletap="closeTap" />
+			</View>
+		</View>
+	</View>
+</Alloy>

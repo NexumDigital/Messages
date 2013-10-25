@@ -1,0 +1,10 @@
+<Alloy>
+	<View class="navbar">
+		<View class="status_bar" />
+		<View class="header">
+			<Button class="left"/>
+			<Label id="title" class="title" />
+			<Button class="right"/>
+		</View>
+	</View>
+</Alloy>

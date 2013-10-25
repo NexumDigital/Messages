@@ -10,7 +10,7 @@
 	<icon>appicon.png</icon>
 	<persistent-wifi>false</persistent-wifi>
 	<prerendered-icon>true</prerendered-icon>
-	<statusbar-style>default</statusbar-style>
+	<statusbar-style>translucent_black</statusbar-style>
 	<statusbar-hidden>false</statusbar-hidden>
 	<fullscreen>false</fullscreen>
 	<navbar-hidden>true</navbar-hidden>
@@ -19,9 +19,6 @@
 	<property name="ti.ui.defaultunit" type="string">system</property>
 	<iphone>
 		<orientations device="iphone">
-			<orientation>Ti.UI.PORTRAIT</orientation>
-		</orientations>
-		<orientations device="ipad">
 			<orientation>Ti.UI.PORTRAIT</orientation>
 			<orientation>Ti.UI.UPSIDE_PORTRAIT</orientation>
 			<orientation>Ti.UI.LANDSCAPE_LEFT</orientation>

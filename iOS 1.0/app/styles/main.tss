@@ -1,0 +1,5 @@
+".main": {
+	backgroundColor: "#ffffff",
+	width : Ti.UI.FILL,
+	height : Ti.UI.FILL
+}

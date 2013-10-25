@@ -1,0 +1,17 @@
+<Alloy>
+	<View class="tabs">
+		<View class="back" />
+		<Button class="tab" onSingletap="sponsorsTap" left="0%">
+			<ImageView id="sponsors" class="icon_badge" />
+		</Button>
+		<Button class="tab" onSingletap="contactsTap" left="25%">
+			<ImageView id="contacts" class="icon_contacts" />
+		</Button>
+		<Button class="tab" onSingletap="messagesTap" left="50%">
+			<ImageView id="messages" class="icon_bubble" />
+		</Button>
+		<Button class="tab" onSingletap="profileTap" left="75%" onLongpress="profileLongpress">
+			<ImageView id="profile" class="icon_card" />
+		</Button>
+	</View>
+</Alloy>

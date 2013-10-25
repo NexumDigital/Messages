@@ -1,0 +1,57 @@
+".login": {
+	backgroundColor: "#032636",
+	width : Ti.UI.FILL,
+	height : Ti.UI.FILL,
+	zIndex : 20
+},
+".logo": {
+	touchEnabled : false,
+	width : 95,
+	height : 92,
+	top : '25%',
+	image : '/login/logo.png'
+},
+".signin": {
+	width : 150,
+	height : 50,
+	top : '70%',
+	backgroundImage : '/login/signin.png',
+	backgroundSelectedImage : '/login/signin_tap.png',
+},
+".webview": {
+	opacity : 0,
+	touchEnabled: false,
+	width : Ti.UI.FILL,
+	height : Ti.UI.FILL,
+	zIndex : 20,
+	layout : 'vertical'
+},
+".status_bar": {
+    touchEnabled : false,
+	width : Ti.UI.FILL,
+	height : 20
+},
+".twitter": {
+	backgroundColor : '#032636',
+	width : Ti.UI.FILL,
+	height : Ti.UI.FILL,
+	disableBounce: true
+},
+".info": {
+	backgroundColor : '#032636',
+	width: Ti.UI.FILL,
+	height: 50,
+	layout: 'vertical'
+},
+".border_top": {
+	backgroundColor : '#c2c2c2',
+	width: Ti.UI.FILL,
+	height: 1,
+	top : 0
+},
+".close": {
+	width : 80,
+	height : 49,
+	backgroundImage : '/login/close.png',
+	backgroundSelectedImage : '/login/close_tap.png',
+}
