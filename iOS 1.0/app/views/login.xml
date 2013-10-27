@@ -5,7 +5,6 @@
 			<Button class="signin" onSingletap="signinTap" />
 		</View>
 		<View id="webview" class="webview">
-			<View class="status_bar" />
 			<WebView id="twitter" class="twitter" />
 			<View class="info">
 				<View class="border_top" />

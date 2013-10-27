@@ -1,5 +1,4 @@
 ".main": {
-	backgroundColor: '#f8f8f8',
 	width : Ti.UI.FILL,
 	height : Ti.UI.FILL
 },
@@ -7,7 +6,7 @@
     touchEnabled : false,
 	backgroundColor : Alloy.CFG.ui_color,
 	width : Ti.UI.FILL,
-	height : 400,
+	height : 64,
 	top : 0,
 	left : 0
 }

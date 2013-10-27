@@ -1,3 +1,7 @@
+if (Ti.Platform.version < 7) {
+	$.index.top = -20;
+}
+
 Alloy.Globals.ui.setParent($.index);
 
 Alloy.Globals.sessions.loadSessions();

@@ -4,6 +4,7 @@
 },
 ".back": {
     touchEnabled : false,
+	backgroundColor : '#b0e6fb',
 	width : 320,
 	height : 160,
 	top : 64
@@ -95,10 +96,11 @@
 },
 ".menu": {
 	width : Ti.UI.FILL,
-	height : 41,
+	height : 40,
 	backgroundColor : '#1ab4ef'
 },
 ".menu_border": {
+	touchEnabled : false,
 	backgroundColor : '#b0e6fb',
 	width : Ti.UI.FILL,
 	height : 1,

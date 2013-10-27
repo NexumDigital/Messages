@@ -24,12 +24,8 @@
 	width : Ti.UI.FILL,
 	height : Ti.UI.FILL,
 	zIndex : 20,
-	layout : 'vertical'
-},
-".status_bar": {
-    touchEnabled : false,
-	width : Ti.UI.FILL,
-	height : 20
+	layout : 'vertical',
+	top : 20
 },
 ".twitter": {
 	disableBounce: true,
