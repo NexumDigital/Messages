@@ -1,5 +1,5 @@
 <Alloy>
 	<View class="main">
-		
+		<ImageView class="back" />
 	</View>
 </Alloy>

@@ -1,31 +1,33 @@
 ".navbar": {
-	backgroundColor : '#1ab4ef',
 	width : Ti.UI.FILL,
 	height : 64,
 	top : 0,
-	layout : 'horizontal',
 	zIndex : 10
 },
-".status_bar": {
-    touchEnabled : false,
-	width : Ti.UI.FILL,
-	height : 20
-},
 ".header": {
-    touchEnabled : false,
 	width : Ti.UI.FILL,
-	height : 44
+	height : 64
+},
+".back": {
+	touchEnabled : false,
+	opacity : 0.90,
+	width : Ti.UI.FILL,
+	height : 64,
+	top : 0,
+	left : 0,
+	backgroundColor : '#1ab4ef'
 },
 ".left": {
-    touchEnabled : false,
 	width : 44,
 	height : 44,
+	top : 20,
 	left : 0
 },
 ".title": {
     touchEnabled : false,
 	width : '70%',
-    height : 44,
+    height : 44,,
+	top : 20,
     color : '#ffffff',
     font : {
         fontFamily : Alloy.CFG.ui_font_bold,
@@ -36,6 +38,7 @@
 ".right": {
     touchEnabled : false,
 	width : 44,
-	height : 44,
+	height : 44,,
+	top : 20,
 	right : 0
 }

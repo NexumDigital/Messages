@@ -7,8 +7,8 @@
 		<Button class="tab" onSingletap="contactsTap" left="25%">
 			<ImageView id="contacts" class="icon_contacts" />
 		</Button>
-		<Button class="tab" onSingletap="messagesTap" left="50%">
-			<ImageView id="messages" class="icon_bubble" />
+		<Button class="tab" onSingletap="threadsTap" left="50%">
+			<ImageView id="threads" class="icon_bubble" />
 		</Button>
 		<Button class="tab" onSingletap="profileTap" left="75%" onLongpress="profileLongpress">
 			<ImageView id="profile" class="icon_card" />

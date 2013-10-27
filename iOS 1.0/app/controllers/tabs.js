@@ -13,8 +13,8 @@ $.tabs.setTab = function(TAB) {
 		case 'contacts':
 			$.contacts.image = '/tabs/icon_contacts.png';
 			break;
-		case 'messages':
-			$.messages.image = '/tabs/icon_bubble.png';
+		case 'threads':
+			$.threads.image = '/tabs/icon_bubble.png';
 			break;
 		case 'profile':
 			$.profile.image = '/tabs/icon_card.png';
@@ -27,8 +27,8 @@ $.tabs.setTab = function(TAB) {
 		case 'contacts':
 			$.contacts.image = '/tabs/icon_contacts_tap.png';
 			break;
-		case 'messages':
-			$.messages.image = '/tabs/icon_bubble_tap.png';
+		case 'threads':
+			$.threads.image = '/tabs/icon_bubble_tap.png';
 			break;
 		case 'profile':
 			$.profile.image = '/tabs/icon_card_tap.png';
@@ -40,8 +40,8 @@ $.tabs.setTab = function(TAB) {
 function sponsorsTap() {
 	Ti.App.fireEvent('navigation', {
 		action : 'open_tab',
-		title : 'Top Sponsors',
-		page : 'sponsors',
+		title : 'Sponsors',
+		container : 'sponsors',
 		identifier : $.tabs.session['identifier']
 	});
 };
@@ -50,16 +50,16 @@ function contactsTap() {
 	Ti.App.fireEvent('navigation', {
 		action : 'open_tab',
 		title : 'Contacts',
-		page : 'contacts',
+		container : 'contacts',
 		identifier : $.tabs.session['identifier']
 	});
 };
 
-function messagesTap() {
+function threadsTap() {
 	Ti.App.fireEvent('navigation', {
 		action : 'open_tab',
-		title : 'Messages',
-		page : 'messages',
+		title : 'Inbox',
+		container : 'threads',
 		identifier : $.tabs.session['identifier']
 	});
 };
@@ -68,7 +68,7 @@ function profileTap() {
 	Ti.App.fireEvent('navigation', {
 		action : 'open_tab',
 		title : $.tabs.session['fullname'],
-		page : 'profile',
+		container : 'profile',
 		identifier : $.tabs.session['identifier']
 	});
 };

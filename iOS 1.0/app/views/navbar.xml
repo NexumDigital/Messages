@@ -1,8 +1,8 @@
 <Alloy>
 	<View class="navbar">
-		<View class="status_bar" />
 		<View class="header">
-			<Button class="left"/>
+			<View class="back" />
+			<Button id="left" class="left" onSingletap="leftTap"/>
 			<Label id="title" class="title" />
 			<Button class="right"/>
 		</View>

@@ -1,0 +1,12 @@
+<Alloy>
+	<View class="main_threads">
+		<ScrollView id="main_scroll" class="main_scroll">
+			<View class="header" />
+			<ActivityIndicator id="loading" class="loading" />
+			<View id="thread_list" class="thread_list">
+				<View id="list_data" class="list_data" onSingletap="listTap"/>
+			</View>
+			<View class="footer" />
+		</ScrollView>
+	</View>
+</Alloy>

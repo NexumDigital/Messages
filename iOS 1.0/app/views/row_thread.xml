@@ -1,0 +1,10 @@
+<Alloy>
+	<View class="row_thread">
+		<View class="border" />
+		<View id="indicator" class="indicator" />
+		<ImageView id="picture" class="picture" />
+		<ImageView class="whitemask" />
+		<Label id="title" class="title" />
+		<Label id="preview" class="preview" />
+	</View>
+</Alloy>

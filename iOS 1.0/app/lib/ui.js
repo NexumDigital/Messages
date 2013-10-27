@@ -13,9 +13,12 @@ exports.loginCheck = function() {
 		this.loginClose();
 		this.main.tabs.setSession(this.session);
 		Ti.App.fireEvent('nexum', {
-			action : 'post_sessions',
-			id_session : this.session['id_session'],
-			uiid : Ti.Platform.id
+			action : 'post_request',
+			path : 'sessions',
+			params : {
+				id_session : this.session['id_session'],
+				uiid : Ti.Platform.id
+			}
 		});
 	}
 };
@@ -38,30 +41,30 @@ exports.mainTabsSet = function(TAB) {
 	this.main.tabs.setTab(TAB);
 };
 
-exports.mainNew = function(TITLE, PAGE, IDENTIFIER) {
-	if (null !== this.main.page) {
-		this.main.remove(this.main.page);
-		this.main.page = null;
+exports.mainNew = function(NAVIGATION, CONTAINER, IDENTIFIER) {
+	if (null !== this.main.container) {
+		this.main.remove(this.main.container);
+		this.main.container = null;
 	}
 
-	this.main.navbar.setTitle(TITLE);
+	this.main.navbar.setNavigation(NAVIGATION);
 
-	this.main.page = Alloy.createController('main_' + PAGE).getView();
-	this.main.page.identifier = IDENTIFIER;
-	this.main.add(this.main.page);
-	this.main.page.start();
+	this.main.container = Alloy.createController('main_' + CONTAINER).getView();
+	this.main.container.identifier = IDENTIFIER;
+	this.main.add(this.main.container);
+	this.main.container.start();
 };
 
 exports.mainPageResponseHandler = function(PATH, RESPONSE) {
-	this.main.page.responseHandler(PATH, RESPONSE);
+	this.main.container.responseHandler(PATH, RESPONSE);
 };
 
 exports.orientationChange = function() {
 	if (null !== this.login)
 		this.login.fireEvent('orientationChange');
-		
-	if (null !== this.main.page)
-		this.main.page.fireEvent('orientationChange');
+
+	if (null !== this.main.container)
+		this.main.container.fireEvent('orientationChange');
 };
 
 exports.boot = function() {
@@ -75,7 +78,7 @@ exports.boot = function() {
 	this.main = Alloy.createController('main').getView();
 	this.main.navbar = Alloy.createController('navbar').getView();
 	this.main.tabs = Alloy.createController('tabs').getView();
-	this.main.page = null;
+	this.main.container = null;
 	this.main.add(this.main.navbar);
 	this.main.add(this.main.tabs);
 	this.parent.add(this.main);

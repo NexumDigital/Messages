@@ -1,5 +1,12 @@
-".row_profile": {
+".row_thread": {
     width : Ti.UI.FILL,
+    height : 60,
+    top : 0,
+    left : 0
+},
+".indicator": {
+    touchEnabled : false,
+    width : 5,
     height : 60,
     top : 0,
     left : 0
@@ -9,7 +16,7 @@
     width : 40,
     height : 40,
     top : 10,
-    left : 10
+    left : 15
 },
 ".whitemask": {
     touchEnabled : false,
@@ -17,22 +24,21 @@
     height : 40,
     image : '/rows/whitemask.png',
     top : 10,
-    left : 10
+    left : 15
 },
-".fullname": {
+".title": {
     touchEnabled : false,
     width : Ti.UI.SIZE,
     height : 21,
     top : 10,
     left: 60,
-    right: 10,
     color : '#363636',
     font : {
         fontFamily : Alloy.CFG.ui_font_bold,
         fontSize : 15,
     }
 },
-".username": {
+".preview": {
     touchEnabled : false,
     width : Ti.UI.SIZE,
     height : 18,
@@ -45,7 +51,7 @@
         fontSize : 12,
     }
 },
-".grey_border": {
+".border": {
     touchEnabled : false,
     width : Ti.UI.FILL,
     height : 1,

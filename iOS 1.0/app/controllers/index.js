@@ -32,10 +32,13 @@ Ti.App.addEventListener('nexum', function(e) {
 Ti.App.addEventListener('navigation', function(e) {
 	switch(e.action) {
 		case 'open_tab':
-			Alloy.Globals.navigation.openTab(e.title, e.page, e.identifier);
+			Alloy.Globals.navigation.openTab(e.title, e.container, e.identifier);
 			break;
-		case 'open_page':
-			Alloy.Globals.navigation.openPage(e.title, e.page, e.identifier);
+		case 'open_container':
+			Alloy.Globals.navigation.openPage(e.title, e.container, e.identifier);
+			break;
+		case 'go_back':
+			Alloy.Globals.navigation.goBack();
 			break;
 		case 'data_response':
 			Alloy.Globals.navigation.dataResponse(e.path, e.identifier, e.response);
@@ -49,12 +52,12 @@ Ti.App.addEventListener('ui', function(e) {
 			Alloy.Globals.ui.loginCheck();
 			break;
 		case 'main_new':
-			Alloy.Globals.ui.mainNew(e.title, e.page, e.identifier);
+			Alloy.Globals.ui.mainNew(e.navigation, e.container, e.identifier);
 			break;
 		case 'main_tab_set':
 			Alloy.Globals.ui.mainTabsSet(e.tab);
 			break;
-		case 'main_page_response_handler':
+		case 'main_container_response_handler':
 			Alloy.Globals.ui.mainPageResponseHandler(e.path, e.response);
 			break;
 	};

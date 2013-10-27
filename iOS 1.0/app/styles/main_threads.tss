@@ -1,0 +1,38 @@
+".main_threads": {
+	width : Ti.UI.FILL,
+	height : Ti.UI.FILL
+},
+".main_scroll": {
+	width : Ti.UI.FILL,
+	height : Ti.UI.FILL,
+	contentHeight : Ti.UI.SIZE,
+	layout : 'vertical',
+	top : 0
+},
+".header": {
+    touchEnabled : false,
+    width : Ti.UI.FILL,
+    height : 64
+},
+".loading": {
+    width : Ti.UI.FILL,
+    height : 0,
+    color : '#0f0',
+    indicatorColor : '#0f0',
+	style : Ti.UI.iPhone.ActivityIndicatorStyle.DARK
+},
+".thread_list": {
+	backgroundColor : '#ffffff',
+    width : Ti.UI.FILL,
+    height : Ti.UI.SIZE
+},
+".list_data": {
+    width : Ti.UI.FILL,
+    height : 0,
+    layout : 'vertical'
+},
+".footer": {
+    touchEnabled : false,
+    width : Ti.UI.FILL,
+    height : 49
+}

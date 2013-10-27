@@ -1,13 +1,15 @@
 <Alloy>
 	<View class="main_contacts">
-		<View class="status_bar" />
 		<View class="menu">
-			<View class="menu_border" />
-			<View class="menu_button_border" />
+			<View class="menu_back">
+				<View class="menu_border" />
+				<View class="menu_button_border" />
+			</View>
 			<Button id="following" class="menu_button" left="0%" title="Following" onSingletap="followingTap" />
 			<Button id="followers" class="menu_button" left="50%" title="Followers" onSingletap="followersTap" />
 		</View>
-		<ScrollView id="results" class="results">
+		<ScrollView id="main_scroll" class="main_scroll">
+			<View class="header" />
 			<View id="search_bar" class="search_bar">
 				<View class="search_white" />
 				<View class="search_line" />

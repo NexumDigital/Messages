@@ -1,26 +1,27 @@
 <Alloy>
-	<ScrollView class="main_profile">
-		<View class="status_bar" />
-		<View class="status">
-			<Label id="status_text" class="status_text" />
-			<ImageView id="status_bird" class="status_bird" />
-		</View>
-		<View id="profile_info" class="profile_info">
-			<ImageView id="profile_info_back" class="profile_info_back" />
-			<ImageView id="profile_info_overlay" class="profile_info_overlay"/>
-			<ImageView class="profile_info_triangle" />
-			<ImageView id="profile_info_picture" class="profile_info_picture" />
-			<ImageView id="profile_info_picture_stroke" class="profile_info_picture_stroke" />
-			<Label id="profile_info_username" class="profile_info_username" />
-			<Label id="profile_info_description" class="profile_info_description" />
-		</View>
-		<View class="menu">
-			<View class="menu_border" />
-			<View class="menu_button_border" />
-			<Button id="following" class="menu_button" left="0%" title="Following" onSingletap="followingTap" />
-			<Button id="followers" class="menu_button" left="50%" title="Followers" onSingletap="followersTap" />
-		</View>
-		<View id="results" class="results">
+	<View class="main_profile">
+		<ImageView id="back" class="back" />
+		<ScrollView id="main_scroll" class="main_scroll">
+			<View class="header" />
+			<View id="profile_info" class="profile_info">
+				<ImageView id="back_overlay" class="back_overlay"/>
+				<View id="profile_info_content" class="profile_info_content">
+					<ImageView id="profile_info_picture" class="profile_info_picture" />
+					<ImageView id="profile_info_picture_stroke" class="profile_info_picture_stroke" />
+					<Label id="profile_info_username" class="profile_info_username" />
+					<Label id="profile_info_description" class="profile_info_description" />
+				</View>
+			</View>
+			<View class="status">
+				<Label id="status_text" class="status_text" />
+				<ImageView id="status_bird" class="status_bird" />
+			</View>
+			<View class="menu">
+				<View class="menu_border" />
+				<View class="menu_button_border" />
+				<Button id="following" class="menu_button" left="0%" title="Following" onSingletap="followingTap" />
+				<Button id="followers" class="menu_button" left="50%" title="Followers" onSingletap="followersTap" />
+			</View>
 			<ActivityIndicator id="loading" class="loading" />
 			<Button id="prev" class="pagination" onSingletap="prevTap">
 				<ImageView class="icon_up" />
@@ -34,6 +35,6 @@
 				<View class="grey_border" />
 			</Button>
 			<View class="footer" />
-		</View>
-	</ScrollView>
+		</ScrollView>
+	</View>
 </Alloy>

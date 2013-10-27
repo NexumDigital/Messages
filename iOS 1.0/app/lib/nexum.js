@@ -51,10 +51,7 @@ function httpPost(PATH, PARAMS) {
 function httpGettHandler(PATH, PARAMS, RESPONSE) {
 	if (RESPONSE['success']) {
 		switch(PATH) {
-			case 'contacts/twitter/search':
-			case 'contacts/twitter/following':
-			case 'contacts/twitter/followers':
-			case 'profiles/twitter':
+			default :
 				Ti.App.fireEvent('navigation', {
 					action : 'data_response',
 					path : PATH,
@@ -80,7 +77,12 @@ function httpPostHandler(PATH, PARAMS, RESPONSE) {
 	if (RESPONSE['success']) {
 		switch(PATH) {
 			case 'sessions':
-				//alert(RESPONSE['message']);
+				Ti.App.fireEvent('navigation', {
+					action : 'open_tab',
+					title : 'Inbox',
+					container : 'threads',
+					identifier : RESPONSE['account_data']['identifier']
+				});
 				break;
 			case 'sessions/twitter':
 				Ti.App.fireEvent('sessions', {
@@ -88,6 +90,9 @@ function httpPostHandler(PATH, PARAMS, RESPONSE) {
 					id_session : RESPONSE['id_session'],
 					account_data : RESPONSE['account_data']
 				});
+				break;
+			default:
+				alert(RESPONSE['message']);
 				break;
 		}
 	} else {

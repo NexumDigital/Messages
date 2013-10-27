@@ -1,82 +1,60 @@
 ".main_profile": {
 	width : Ti.UI.FILL,
+	height : Ti.UI.FILL
+},
+".back": {
+    touchEnabled : false,
+	width : 320,
+	height : 160,
+	top : 64
+},
+".main_scroll": {
+	width : Ti.UI.FILL,
 	height : Ti.UI.FILL,
 	contentHeight : Ti.UI.SIZE,
-	layout : 'vertical'
+	layout : 'vertical',
+	top : 0
 },
-".status_bar": {
+".header": {
     touchEnabled : false,
-	width : Ti.UI.FILL,
-	height : 20
-},
-".status": {
-    touchEnabled : false,
-	backgroundColor : '#f8f8f8',
-	width : Ti.UI.FILL,
-	height : 0,
-    top : 44
-},
-".status_text": {
-    touchEnabled : false,
-	width : '80%',
-    height : Ti.UI.SIZE,
-    top : 15,
-    bottom : 30,
-    color : '#032636',
-    font : {
-        fontFamily : Alloy.CFG.ui_font,
-        fontSize : 14,
-    },
-    textAlign : 'center'
-},
-".status_bird": {
-    touchEnabled : false,
-	width : 12,
-	height : 12,
-	bottom : 7
+    width : Ti.UI.FILL,
+    height : 64
 },
 ".profile_info": {
     touchEnabled : false,
-	backgroundColor : '#032636',
 	width : 320,
 	height : 160
 },
-".profile_info_back": {
-    touchEnabled : false,
-	width : 320,
-	height : 160
-},
-".profile_info_overlay": {
+".back_overlay": {
     touchEnabled : false,
 	width : 320,
 	height : 160,
 	image : '/profile/overlay.png'
 },
-".profile_info_triangle": {
+".profile_info_content": {
+	opacity : 0,
     touchEnabled : false,
-	width : 6,
-	height : 0,
-	top : 0,
-	image : '/profile/triangle.png'
+	width : Ti.UI.SIZE,
+	height : Ti.UI.SIZE,
+	layout : 'vertical'
 },
 ".profile_info_picture": {
     touchEnabled : false,
     width : 42,
     height : 42,
-    top : 20,
     borderRadius:21
 },
 ".profile_info_picture_stroke": {
     touchEnabled : false,
     width : 42,
     height : 42,
-    top : 20
+    top : -42
 },
 ".profile_info_username": {
     touchEnabled : false,
 	width : '90%',
     height : Ti.UI.SIZE,
-    top : 65,
+    top : 5,
     color : '#ffffff',
     font : {
         fontFamily : Alloy.CFG.ui_font_bold,
@@ -88,18 +66,37 @@
     touchEnabled : false,
 	width : '90%',
     height : Ti.UI.SIZE,
-    top : 85,
+    top : 5,
     color : '#ffffff',
     font : {
         fontFamily : Alloy.CFG.ui_font,
-        fontSize : 12,
+        fontSize : 14,
+    },
+    textAlign : 'center'
+},
+".status": {
+    touchEnabled : false,
+    backgroundColor : '#74d2f6',
+	width : Ti.UI.FILL,
+	height : 0
+},
+".status_text": {
+    touchEnabled : false,
+	width : '80%',
+    height : Ti.UI.SIZE,
+    top : 15,
+    bottom : 30,
+    color : '#ffffff',
+    font : {
+        fontFamily : Alloy.CFG.ui_font,
+        fontSize : 14,
     },
     textAlign : 'center'
 },
 ".menu": {
-	backgroundColor : '#74d2f6',
 	width : Ti.UI.FILL,
-	height : 41
+	height : 41,
+	backgroundColor : '#1ab4ef'
 },
 ".menu_border": {
 	backgroundColor : '#b0e6fb',
@@ -125,20 +122,13 @@
     },
     textAlign : 'center'
 },
-".results": {
-	width : Ti.UI.FILL,
-	height : Ti.UI.SIZE,
-	contentHeight : Ti.UI.SIZE,
-	top : 0,
-	layout : 'vertical'
-},
 ".loading": {
-	backgroundColor : '#eaeced',
     width : Ti.UI.FILL,
     height : 0,
-	style : Ti.UI.iPhone.ActivityIndicatorStyle.BIG
+	style : Ti.UI.iPhone.ActivityIndicatorStyle.DARK
 },
 ".pagination": {
+	backgroundColor : '#ffffff',
 	width : Ti.UI.FILL,
 	height : 0
 },
@@ -153,6 +143,7 @@
 	image : '/rows/icon_down.png'
 },
 ".profile_list": {
+	backgroundColor : '#ffffff',
     width : Ti.UI.FILL,
     height : Ti.UI.SIZE
 },
@@ -160,6 +151,12 @@
     width : Ti.UI.FILL,
     height : 0,
     layout : 'vertical'
+},
+".status_bird": {
+    touchEnabled : false,
+	width : 12,
+	height : 12,
+	bottom : 7
 },
 ".grey_border": {
     touchEnabled : false,

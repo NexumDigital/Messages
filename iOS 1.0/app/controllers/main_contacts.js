@@ -1,4 +1,5 @@
-var table_rows = [];
+var list_rows = [];
+var profiles_data = [];
 
 $.main_contacts.start = function() {
 	$.search_input.focused = false;
@@ -11,42 +12,28 @@ $.main_contacts.start = function() {
 $.main_contacts.responseHandler = function(PATH, RESPONSE) {
 	$.prev.page = RESPONSE['pagination']['prev'];
 	$.next.page = RESPONSE['pagination']['next'];
-	var profiles_data = RESPONSE['profiles_data'];
-
-	$.list_data.height = (profiles_data.length * 60);
+	profiles_data = RESPONSE['profiles_data'];
 	
-	if (!$.main_contacts.started_from_the_bottom && 'search' != $.main_contacts.selected)
-		$.results.scrollTo(0, 49);
+	$.list_data.height = (profiles_data.length * 60);
+
+	if ($.main_contacts.started_from_the_bottom)
+		$.main_scroll.scrollTo(0, 0);
 
 	var i = 0;
-	table_rows = [];
+	list_rows = [];
 	for (i in profiles_data) {
-		if (undefined == table_rows[i])
-			table_rows[i] = Alloy.createController('row_profile').getView();
-		table_rows[i].setData(profiles_data[i]);
-		$.list_data.add(table_rows[i]);
-	}
-
-	$.profile_list.add($.list_data);
-	$.loading.hide();
-	$.loading.height = 0;
-	if (null != $.prev.page) {
-		$.prev.height = 40;
-	}
-	if (null != $.next.page) {
-		$.next.height = 40;
-	}
-	if ($.main_contacts.started_from_the_bottom) {
-		$.results.scrollToBottom();
+		$.list_data.fireEvent('add_row', {
+			i : i
+		});
 	}
 };
 
 function dataRequest() {
+	$.profile_list.removeAllChildren();
 	$.prev.height = 0;
 	$.next.height = 0;
 	$.loading.height = 50;
 	$.loading.show();
-	$.profile_list.removeAllChildren();
 	$.list_data.removeAllChildren();
 
 	Ti.App.fireEvent('nexum', {
@@ -61,9 +48,9 @@ function dataRequest() {
 };
 
 function preloadRows(HOW_MANY) {
-	var i = table_rows.length;
+	var i = list_rows.length;
 	do {
-		table_rows[i] = Alloy.createController('row_profile').getView();
+		list_rows[i] = Alloy.createController('row_profile').getView();
 	} while (HOW_MANY > i++);
 };
 
@@ -104,9 +91,9 @@ function setSource(SOURCE) {
 function listTap(e) {
 	if (undefined != e.source.identifier) {
 		Ti.App.fireEvent('navigation', {
-			action : 'open_page',
+			action : 'open_container',
 			title : e.source.view_title,
-			page : 'profile',
+			container : 'profile',
 			identifier : e.source.identifier
 		});
 	}
@@ -126,14 +113,14 @@ function searchAction() {
 function searchFocus() {
 	$.search_input.focused = true;
 	$.search_action.image = '/contacts/search_cancel.png';
-	$.results.scrollTo(0, 0);
+	$.main_scroll.scrollTo(0, 0);
 };
 
 function searchBlur() {
 	$.search_input.focused = false;
 	$.search_action.image = '/contacts/search_magnifier.png';
 	if ('search' != $.main_contacts.selected)
-		$.results.scrollTo(0, 49);
+		$.main_scroll.scrollTo(0, 49);
 };
 
 function searchReturn() {
@@ -164,3 +151,29 @@ function nextTap() {
 	$.main_contacts.started_from_the_bottom = false;
 	dataRequest();
 };
+
+$.list_data.addEventListener('add_row', function(e) {
+	if (undefined == list_rows[e.i])
+		list_rows[e.i] = Alloy.createController('row_profile').getView();
+
+	list_rows[e.i].setData(profiles_data[e.i]);
+	$.list_data.add(list_rows[e.i]);
+
+	if ((profiles_data.length - 1) == e.i) {
+		$.profile_list.add($.list_data);
+
+		$.loading.hide();
+		$.loading.height = 0;
+
+		if (null != $.prev.page) {
+			$.prev.height = 40;
+		}
+		if (null != $.next.page) {
+			$.next.height = 40;
+		}
+
+		if ($.main_contacts.started_from_the_bottom) {
+			$.main_scroll.scrollToBottom();
+		}
+	}
+});

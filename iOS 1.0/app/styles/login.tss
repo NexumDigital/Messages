@@ -32,10 +32,10 @@
 	height : 20
 },
 ".twitter": {
+	disableBounce: true,
 	backgroundColor : '#032636',
 	width : Ti.UI.FILL,
-	height : Ti.UI.FILL,
-	disableBounce: true
+	height : Ti.UI.FILL
 },
 ".info": {
 	backgroundColor : '#032636',

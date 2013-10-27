@@ -1,26 +1,31 @@
 ".main_contacts": {
 	width : Ti.UI.FILL,
-	height : Ti.UI.FILL,
-	layout : 'vertical'
-},
-".status_bar": {
-    touchEnabled : false,
-	width : Ti.UI.FILL,
-	height : 20
+	height : Ti.UI.FILL
 },
 ".menu": {
-	backgroundColor : '#74d2f6',
 	width : Ti.UI.FILL,
 	height : 41,
-    top : 44
+	top : 64,
+	zIndex : 10
+},
+".menu_back": {
+	touchEnabled : false,
+	opacity : 0.90,
+	width : Ti.UI.FILL,
+	height : 64,
+	top : 0,
+	left : 0,
+	backgroundColor : '#1ab4ef'
 },
 ".menu_border": {
+	touchEnabled : false,
 	backgroundColor : '#b0e6fb',
 	width : Ti.UI.FILL,
 	height : 1,
     top : 0
 },
 ".menu_button_border": {
+	touchEnabled : false,
 	backgroundColor : '#b0e6fb',
 	width : 1,
 	height : Ti.UI.FILL,
@@ -38,15 +43,20 @@
     },
     textAlign : 'center'
 },
-".results": {
+".main_scroll": {
 	width : Ti.UI.FILL,
 	height : Ti.UI.FILL,
 	contentHeight : Ti.UI.SIZE,
 	top : 0,
 	layout : 'vertical'
 },
+".header": {
+    touchEnabled : false,
+    width : Ti.UI.FILL,
+    height : 105
+},
 ".search_bar": {
-	backgroundColor : '#eaeced',
+	backgroundColor : '#f8f8f8',
 	width : Ti.UI.FILL,
 	height : 50,
 	top : 0
@@ -102,12 +112,12 @@
     returnKeyType : Ti.UI.RETURNKEY_SEARCH
 },
 ".loading": {
-	backgroundColor : '#eaeced',
     width : Ti.UI.FILL,
     height : 0,
-	style : Ti.UI.iPhone.ActivityIndicatorStyle.BIG
+	style : Ti.UI.iPhone.ActivityIndicatorStyle.DARK
 },
 ".pagination": {
+	backgroundColor : '#ffffff',
 	width : Ti.UI.FILL,
 	height : 0
 },
@@ -122,6 +132,7 @@
 	image : '/rows/icon_down.png'
 },
 ".profile_list": {
+	backgroundColor : '#ffffff',
     width : Ti.UI.FILL,
     height : Ti.UI.SIZE
 },
