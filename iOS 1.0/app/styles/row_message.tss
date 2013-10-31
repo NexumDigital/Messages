@@ -1,0 +1,49 @@
+".row_message": {
+    width : Ti.UI.FILL,
+    height : Ti.UI.SIZE
+},
+".picture": {
+    touchEnabled : false,
+    width : 40,
+    height : 40,
+    bottom : 5,
+    borderRadius: 20
+},
+".point": {
+    touchEnabled : false,
+    width : 17,
+    height : 16,
+    bottom : 5
+},
+".bubble": {
+    touchEnabled : false,
+    width : Ti.UI.SIZE,
+    height : Ti.UI.SIZE,
+    bottom : 5,
+    borderRadius : 15
+},
+".message": {
+    touchEnabled : false,
+    width : Ti.UI.SIZE,
+    height : Ti.UI.SIZE,
+    top : 5,
+    bottom : 5,
+    left: 15,
+    right: 15,
+    color : '#363636',
+    font : {
+        fontFamily : Alloy.CFG.ui_font,
+        fontSize : 16,
+    }
+}
+".timeago": {
+    touchEnabled : false,
+    width : Ti.UI.FILL,
+    height : 18,
+    bottom : 1,
+    color : '#9fa4a4',
+    font : {
+        fontFamily : Alloy.CFG.ui_font,
+        fontSize : 11,
+    }
+}

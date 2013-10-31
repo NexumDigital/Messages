@@ -33,13 +33,21 @@ Ti.App.addEventListener('nexum', function(e) {
 	};
 });
 
+Ti.App.addEventListener('push', function(e){
+	switch(e.action) {
+		case 'register':
+			Alloy.Globals.push.register();
+			break;
+	};
+});
+
 Ti.App.addEventListener('navigation', function(e) {
 	switch(e.action) {
 		case 'open_tab':
 			Alloy.Globals.navigation.openTab(e.title, e.container, e.identifier);
 			break;
 		case 'open_container':
-			Alloy.Globals.navigation.openPage(e.title, e.container, e.identifier);
+			Alloy.Globals.navigation.openContainer(e.title, e.container, e.identifier);
 			break;
 		case 'go_back':
 			Alloy.Globals.navigation.goBack();
@@ -56,19 +64,27 @@ Ti.App.addEventListener('ui', function(e) {
 			Alloy.Globals.ui.loginCheck();
 			break;
 		case 'main_new':
-			Alloy.Globals.ui.mainNew(e.navigation, e.container, e.identifier);
+			Alloy.Globals.ui.mainNew(e.navigation, e.showtabs, e.container, e.identifier);
 			break;
 		case 'main_tab_set':
 			Alloy.Globals.ui.mainTabsSet(e.tab);
 			break;
 		case 'main_container_response_handler':
-			Alloy.Globals.ui.mainPageResponseHandler(e.path, e.response);
+			Alloy.Globals.ui.mainContainerResponseHandler(e.path, e.response);
 			break;
 	};
 });
 
 Ti.Gesture.addEventListener('orientationchange', function(e) {
 	Alloy.Globals.ui.orientationChange();
+});
+
+Ti.App.addEventListener('pause', function(e) {
+
+});
+
+Ti.App.addEventListener('resumed', function(e) {
+	Alloy.Globals.navigation.reloadContainer();
 });
 
 Alloy.Globals.ui.boot();

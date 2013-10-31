@@ -4,7 +4,6 @@
 },
 ".back": {
     touchEnabled : false,
-	backgroundColor : '#b0e6fb',
 	width : 320,
 	height : 160,
 	top : 64

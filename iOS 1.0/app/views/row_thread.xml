@@ -6,5 +6,6 @@
 		<ImageView class="whitemask" />
 		<Label id="title" class="title" />
 		<Label id="preview" class="preview" />
+		<Label id="timeago" class="timeago" />
 	</View>
 </Alloy>

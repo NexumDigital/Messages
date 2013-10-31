@@ -20,6 +20,9 @@ exports.loginCheck = function() {
 				uiid : Ti.Platform.id
 			}
 		});
+		Ti.App.fireEvent('push', {
+			action : 'register'
+		});
 	}
 };
 
@@ -41,7 +44,7 @@ exports.mainTabsSet = function(TAB) {
 	this.main.tabs.setTab(TAB);
 };
 
-exports.mainNew = function(NAVIGATION, CONTAINER, IDENTIFIER) {
+exports.mainNew = function(NAVIGATION, SHOWTABS, CONTAINER, IDENTIFIER) {
 	if (null !== this.main.container) {
 		this.main.remove(this.main.container);
 		this.main.container = null;
@@ -49,13 +52,18 @@ exports.mainNew = function(NAVIGATION, CONTAINER, IDENTIFIER) {
 
 	this.main.navbar.setNavigation(NAVIGATION);
 
+	if (SHOWTABS)
+		this.main.tabs.opacity = 1;
+	else
+		this.main.tabs.opacity = 0;
+
 	this.main.container = Alloy.createController('main_' + CONTAINER).getView();
 	this.main.container.identifier = IDENTIFIER;
 	this.main.add(this.main.container);
 	this.main.container.start();
 };
 
-exports.mainPageResponseHandler = function(PATH, RESPONSE) {
+exports.mainContainerResponseHandler = function(PATH, RESPONSE) {
 	this.main.container.responseHandler(PATH, RESPONSE);
 };
 
@@ -68,12 +76,8 @@ exports.orientationChange = function() {
 };
 
 exports.boot = function() {
-	this.accounts = null;
 	this.main = null;
 	this.login = null;
-
-	this.accounts = Alloy.createController('accounts').getView();
-	this.parent.add(this.accounts);
 
 	this.main = Alloy.createController('main').getView();
 	this.main.navbar = Alloy.createController('navbar').getView();

@@ -29,7 +29,7 @@
 ".title": {
     touchEnabled : false,
     width : Ti.UI.SIZE,
-    height : 21,
+    height : 20,
     top : 10,
     left: 60,
     color : '#363636',
@@ -41,11 +41,23 @@
 ".preview": {
     touchEnabled : false,
     width : Ti.UI.SIZE,
-    height : 18,
+    height : 20,
     top : 30,
     left: 60,
     right: 10,
-    color : '#c2c2c2',
+    color : '#787878',
+    font : {
+        fontFamily : Alloy.CFG.ui_font,
+        fontSize : 12,
+    }
+},
+".timeago": {
+    touchEnabled : false,
+    width : Ti.UI.SIZE,
+    height : 18,
+    top : 12,
+    right: 10,
+    color : '#9fa4a4',
     font : {
         fontFamily : Alloy.CFG.ui_font,
         fontSize : 12,

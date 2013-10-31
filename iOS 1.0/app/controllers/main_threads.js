@@ -25,7 +25,7 @@ function threadsRequest() {
 	$.loading.height = 50;
 	$.loading.show();
 	$.list_data.removeAllChildren();
-
+	
 	Ti.App.fireEvent('nexum', {
 		action : 'get_request',
 		path : 'threads/twitter',
@@ -44,13 +44,12 @@ function preloadRows(HOW_MANY) {
 
 function listTap(e) {
 	if (undefined != e.source.identifier) {
-		alert(e.source.identifier);
-		/* Ti.App.fireEvent('navigation', {
+		Ti.App.fireEvent('navigation', {
 			action : 'open_container',
 			title : e.source.view_title,
-			container : 'profile',
+			container : 'messages',
 			identifier : e.source.identifier
-		}); */
+		});
 	}
 };
 

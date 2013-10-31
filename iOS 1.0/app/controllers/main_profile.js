@@ -14,16 +14,19 @@ $.main_profile.responseHandler = function(PATH, RESPONSE) {
 	switch(PATH) {
 		case 'profiles/twitter':
 			var profile_data = RESPONSE['profile_data'];
-			$.back.image = profile_data['back'];
+			if ('' == profile_data['back'])
+				$.back.backgroundColor = Alloy.CFG.ui_color;
+			else
+				$.back.image = profile_data['back'];
 			$.profile_info_picture.image = profile_data['picture'];
 			$.profile_info_picture_stroke.image = '/profile/stroke.png';
 			$.profile_info_username.text = '@' + profile_data['username'];
 			$.profile_info_description.text = profile_data['description'];
 			$.profile_info_content.opacity = 1;
-			
+
 			$.following.title = shortCount(profile_data['count_following']) + ' Following';
 			$.followers.title = shortCount(profile_data['count_followers']) + ' Followers';
-			
+
 			$.status_text.text = '"' + profile_data['status'] + '"';
 			$.status_bird.image = '/profile/bird.png';
 			break;

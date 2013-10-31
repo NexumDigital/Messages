@@ -76,6 +76,8 @@ function httpGettHandler(PATH, PARAMS, RESPONSE) {
 function httpPostHandler(PATH, PARAMS, RESPONSE) {
 	if (RESPONSE['success']) {
 		switch(PATH) {
+			case 'messages/twitter':
+				break;
 			case 'sessions':
 				Ti.App.fireEvent('navigation', {
 					action : 'open_tab',
