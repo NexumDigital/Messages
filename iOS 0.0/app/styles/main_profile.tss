@@ -1,0 +1,173 @@
+".main_profile": {
+	width : Ti.UI.FILL,
+	height : Ti.UI.FILL
+},
+".back": {
+    touchEnabled : false,
+	width : 320,
+	height : 160,
+	top : 64
+},
+".main_scroll": {
+	width : Ti.UI.FILL,
+	height : Ti.UI.FILL,
+	contentHeight : Ti.UI.SIZE,
+	layout : 'vertical',
+	top : 0
+},
+".header": {
+    touchEnabled : false,
+    width : Ti.UI.FILL,
+    height : 64
+},
+".profile_info": {
+    touchEnabled : false,
+	width : 320,
+	height : 160
+},
+".back_overlay": {
+    touchEnabled : false,
+	width : 320,
+	height : 160,
+	image : '/profile/overlay.png'
+},
+".profile_info_content": {
+	opacity : 0,
+    touchEnabled : false,
+	width : Ti.UI.SIZE,
+	height : Ti.UI.SIZE,
+	layout : 'vertical'
+},
+".profile_info_picture": {
+    touchEnabled : false,
+    width : 42,
+    height : 42,
+    borderRadius:21
+},
+".profile_info_picture_stroke": {
+    touchEnabled : false,
+    width : 42,
+    height : 42,
+    top : -42
+},
+".profile_info_username": {
+    touchEnabled : false,
+	width : '90%',
+    height : Ti.UI.SIZE,
+    top : 5,
+    color : '#ffffff',
+    font : {
+        fontFamily : Alloy.CFG.ui_font_bold,
+        fontSize : 16,
+    },
+    textAlign : 'center'
+},
+".profile_info_description": {
+    touchEnabled : false,
+	width : '90%',
+    height : Ti.UI.SIZE,
+    top : 5,
+    color : '#ffffff',
+    font : {
+        fontFamily : Alloy.CFG.ui_font,
+        fontSize : 14,
+    },
+    textAlign : 'center'
+},
+".status": {
+    touchEnabled : false,
+    backgroundColor : '#74d2f6',
+	width : Ti.UI.FILL,
+	height : 0
+},
+".status_text": {
+    touchEnabled : false,
+	width : '80%',
+    height : Ti.UI.SIZE,
+    top : 15,
+    bottom : 30,
+    color : '#ffffff',
+    font : {
+        fontFamily : Alloy.CFG.ui_font,
+        fontSize : 14,
+    },
+    textAlign : 'center'
+},
+".menu": {
+	width : Ti.UI.FILL,
+	height : 40,
+	backgroundColor : '#74d2f6'
+},
+".menu_border": {
+	touchEnabled : false,
+	backgroundColor : '#b0e6fb',
+	width : Ti.UI.FILL,
+	height : 1,
+    top : 0
+},
+".menu_button_border": {
+	backgroundColor : '#b0e6fb',
+	width : 1,
+	height : Ti.UI.FILL,
+    left : '50%'
+},
+".menu_button": {
+	width : '50%',
+	height : Ti.UI.FILL,
+	color : '#22a1d9',
+	selectedColor : '#ffffff',
+	baseColor : '#22a1d9',
+    font : {
+        fontFamily : Alloy.CFG.ui_font,
+        fontSize : 13
+    },
+    textAlign : 'center'
+},
+".loading": {
+    width : Ti.UI.FILL,
+    height : 0,
+	style : Ti.UI.iPhone.ActivityIndicatorStyle.DARK
+},
+".pagination": {
+	backgroundColor : '#ffffff',
+	width : Ti.UI.FILL,
+	height : 0
+},
+".icon_up": {
+	width : 20,
+	height : 30,
+	image : '/rows/icon_up.png'
+},
+".icon_down": {
+	width : 20,
+	height : 30,
+	image : '/rows/icon_down.png'
+},
+".profile_list": {
+	backgroundColor : '#ffffff',
+    width : Ti.UI.FILL,
+    height : Ti.UI.SIZE
+},
+".list_data": {
+    width : Ti.UI.FILL,
+    height : 0,
+    layout : 'vertical'
+},
+".status_bird": {
+    touchEnabled : false,
+	width : 12,
+	height : 12,
+	bottom : 7
+},
+".grey_border": {
+    touchEnabled : false,
+    width : Ti.UI.FILL,
+    height : 1,
+    bottom :0,
+    backgroundColor : '#ededea'
+},
+".footer": {
+    touchEnabled : false,
+    width : Ti.UI.FILL,
+    height : 49
+}

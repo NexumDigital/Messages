@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ti:app xmlns:ti="http://ti.appcelerator.org">
+    <id>mobi.nexum.messages</id>
+    <name>Messages!</name>
+    <version>1.0</version>
+    <publisher>NexumDigital Inc.</publisher>
+    <url>http://messages.mx</url>
+    <description>One inbox to rule them all.</description>
+    <copyright>2013 by NexumDigital Inc.</copyright>
+    <icon>appicon.png</icon>
+    <persistent-wifi>false</persistent-wifi>
+    <prerendered-icon>true</prerendered-icon>
+    <statusbar-style>translucent_black</statusbar-style>
+    <statusbar-hidden>false</statusbar-hidden>
+    <fullscreen>false</fullscreen>
+    <navbar-hidden>true</navbar-hidden>
+    <analytics>false</analytics>
+    <guid>08136667-3920-4613-be23-58cebb3737e8</guid>
+    <property name="ti.ui.defaultunit" type="string">system</property>
+    <iphone>
+        <orientations device="iphone">
+            <orientation>Ti.UI.PORTRAIT</orientation>
+            <orientation>Ti.UI.LANDSCAPE_LEFT</orientation>
+            <orientation>Ti.UI.LANDSCAPE_RIGHT</orientation>
+        </orientations>
+    </iphone>
+    <deployment-targets>
+        <target device="android">false</target>
+        <target device="blackberry">false</target>
+        <target device="ipad">false</target>
+        <target device="iphone">true</target>
+        <target device="mobileweb">false</target>
+        <target device="tizen">false</target>
+    </deployment-targets>
+    <sdk-version>3.1.3.GA</sdk-version>
+    <plugins>
+        <plugin version="1.0">ti.alloy</plugin>
+    </plugins>
+    <ios>
+        <plist>
+            <dict>
+                <key>CFBundleURLTypes</key>
+                <array>
+                    <dict>
+                        <key>CFBundleURLName</key>
+                        <string>mobi.nexum.messages</string>
+                        <key>CFBundleURLSchemes</key>
+                        <array>
+                            <string>messages</string>
+                        </array>
+                    </dict>
+                </array>
+            </dict>
+        </plist>
+    </ios>
+    <modules>
+        <module platform="iphone" version="1.1.3">com.onecowstanding.flurry</module>
+        <module platform="iphone" version="1.5">com.0x82.twitter</module>
+        <module platform="iphone" version="2.1.3">ti.storekit</module>
+    </modules>
+</ti:app>

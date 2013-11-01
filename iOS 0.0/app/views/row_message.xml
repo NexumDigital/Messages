@@ -1,0 +1,10 @@
+<Alloy>
+	<TableViewRow class="row_message">
+		<ImageView id="picture" class="picture" />
+		<ImageView id="point" class="point">
+		<View id="bubble" class="bubble">
+			<Label id="message" class="message" />
+		</View>
+		<Label id="timeago" class="timeago" />
+	</TableViewRow>
+</Alloy>

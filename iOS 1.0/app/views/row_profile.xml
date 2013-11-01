@@ -1,9 +1,0 @@
-<Alloy>
-	<View class="row_profile">
-		<ImageView id="picture" class="picture" />
-		<ImageView class="whitemask" />
-		<Label id="fullname" class="fullname" />
-		<Label id="username" class="username" />
-		<View class="grey_border" />
-	</View>
-</Alloy>

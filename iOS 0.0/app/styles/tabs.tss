@@ -1,0 +1,36 @@
+".tabs": {
+	width : Ti.UI.FILL,
+	height : 49,
+	bottom : 0,
+	zIndex : 10
+},
+".back": {
+	opacity : 0.90,
+	backgroundColor : '#f8f8f8',
+	width : Ti.UI.FILL,
+	height : Ti.UI.FILL
+},
+".tab": {
+	width : '25%',
+	height : Ti.UI.FILL
+},
+".icon_star": {
+	width : 31,
+	height : 31,
+	image : '/tabs/icon_star.png'
+},
+".icon_contacts": {
+	width : 31,
+	height : 31,
+	image : '/tabs/icon_contacts.png'
+},
+".icon_bubble": {
+	width : 31,
+	height : 31,
+	image : '/tabs/icon_bubble.png'
+},
+".icon_card": {
+	width : 31,
+	height : 31,
+	image : '/tabs/icon_card.png'
+}
