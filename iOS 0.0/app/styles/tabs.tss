@@ -11,7 +11,7 @@
 	height : Ti.UI.FILL
 },
 ".tab": {
-	width : '25%',
+	width : '33%',
 	height : Ti.UI.FILL
 },
 ".icon_star": {

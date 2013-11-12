@@ -13,7 +13,7 @@ $.row_profile.setData = function(PROFILE_DATA) {
 		$.button.backgroundSelectedImage = '/rows/chat_tap.png';
 	} else {
 		$.button.action = 'invite';
-		$.button.backgroundImage = '/rows/invite.png';
-		$.button.backgroundSelectedImage = '/rows/invite_tap.png';
+		//$.button.backgroundImage = '/rows/invite.png';
+		//$.button.backgroundSelectedImage = '/rows/invite_tap.png';
 	}
 };

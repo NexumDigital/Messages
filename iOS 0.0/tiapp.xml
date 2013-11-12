@@ -2,7 +2,7 @@
 <ti:app xmlns:ti="http://ti.appcelerator.org">
     <id>mobi.nexum.messages</id>
     <name>Messages!</name>
-    <version>1.0</version>
+    <version>0.9.0</version>
     <publisher>NexumDigital Inc.</publisher>
     <url>http://messages.mx</url>
     <description>One inbox to rule them all.</description>

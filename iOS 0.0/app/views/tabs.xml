@@ -1,16 +1,13 @@
 <Alloy>
 	<View class="tabs">
 		<View class="back" />
-		<Button class="tab" onSingletap="sponsorsTap" left="0%">
-			<ImageView id="sponsors" class="icon_star" />
-		</Button>
-		<Button class="tab" onSingletap="contactsTap" left="25%">
+		<Button class="tab" onSingletap="contactsTap" left="0%">
 			<ImageView id="contacts" class="icon_contacts" />
 		</Button>
-		<Button class="tab" onSingletap="threadsTap" left="50%">
+		<Button class="tab" onSingletap="threadsTap" left="33%">
 			<ImageView id="threads" class="icon_bubble" />
 		</Button>
-		<Button class="tab" onSingletap="profileTap" left="75%" onLongpress="profileLongpress">
+		<Button class="tab" onSingletap="profileTap" left="66%" onLongpress="profileLongpress">
 			<ImageView id="profile" class="icon_card" />
 		</Button>
 	</View>
