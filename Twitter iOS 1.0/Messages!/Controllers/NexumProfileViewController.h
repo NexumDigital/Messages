@@ -42,5 +42,7 @@
 - (IBAction)followersAction:(id)sender;
 
 - (void) clearTable;
+- (void) loadProfileImage;
+- (void) loadBackImage;
 
 @end

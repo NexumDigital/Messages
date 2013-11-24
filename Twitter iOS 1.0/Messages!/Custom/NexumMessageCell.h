@@ -18,4 +18,6 @@
 @property (strong, nonatomic) UIImageView *picture;
 
 - (void) reuseCell:(BOOL)isPortrait withMessage: (NSDictionary *)message andProfile: (NSDictionary *)profile;
+- (void) loadImageswithMessageAndProfile:(NSArray *) objectData;
+
 @end

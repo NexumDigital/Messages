@@ -85,6 +85,7 @@
     NSDictionary *thread = [self.threads objectAtIndex:indexPath.row];
     cell.identifier = thread[@"identifier"];
     [cell reuseCellWithThread:thread];
+    [cell performSelector:@selector(loadImagesWithThread:) withObject:thread afterDelay:0.1];
     return cell;
 }
 

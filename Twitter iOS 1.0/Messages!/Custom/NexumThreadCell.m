@@ -30,22 +30,32 @@
     profilePicture.pictureURL = thread[@"picture"];
     
     BOOL exists = [[FICImageCache sharedImageCache] imageExistsForEntity:profilePicture withFormatName:@"picture"];
-    if(!exists)
-        self.picture.image = [UIImage imageNamed:@"placeholder"];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        if(!exists)
-            usleep(500000);
+    if(exists){
         if([self.identifier isEqualToString:(NSString *)thread[@"identifier"]]){
             [[FICImageCache sharedImageCache] retrieveImageForEntity:profilePicture withFormatName:@"picture" completionBlock:^(id<FICEntity> entity, NSString *formatName, UIImage *image) {
                 if([self.identifier isEqualToString:(NSString *)thread[@"identifier"]]){
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        self.picture.image = image;
-                    });
+                    self.picture.image = image;
                 }
             }];
         }
-    });
+    } else {
+        self.picture.image = [UIImage imageNamed:@"placeholder"];
+    }
+}
+
+- (void) loadImagesWithThread: (NSDictionary *) thread{
+    if([self.identifier isEqualToString:(NSString *)thread[@"identifier"]]){
+        NexumProfilePicture *profilePicture = [[NexumProfilePicture alloc] init];
+        
+        profilePicture.identifier = thread[@"identifier"];
+        profilePicture.pictureURL = thread[@"picture"];
+        
+        [[FICImageCache sharedImageCache] retrieveImageForEntity:profilePicture withFormatName:@"picture" completionBlock:^(id<FICEntity> entity, NSString *formatName, UIImage *image) {
+            if([self.identifier isEqualToString:(NSString *)thread[@"identifier"]]){
+                self.picture.image = image;
+            }
+        }];
+    }
 }
 
 @end

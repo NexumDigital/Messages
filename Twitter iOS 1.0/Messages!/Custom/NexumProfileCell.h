@@ -17,8 +17,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *username;
 @property (strong, nonatomic) IBOutlet UIButton *button;
 
-@property (strong, nonatomic) UIImage *fastImage;
-
 - (void) reuseCellWithProfile: (NSDictionary *) profile;
+- (void) loadImagesWithProfile: (NSDictionary *) profile;
 
 @end

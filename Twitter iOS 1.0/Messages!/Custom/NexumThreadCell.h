@@ -19,5 +19,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *timeago;
 
 - (void) reuseCellWithThread: (NSDictionary *) thread;
+- (void) loadImagesWithThread: (NSDictionary *) thread;
 
 @end

@@ -51,7 +51,7 @@
     }
     
     self.message.text = message[@"text"];
-   
+    
     
     CGRect messageFrame = self.message.frame;
     CGSize messageSize = [self.message sizeThatFits:CGSizeMake((screenWidth - 140), FLT_MAX)];
@@ -107,25 +107,39 @@
         profilePicture.pictureURL = profile[@"picture"];
         
         BOOL exists = [[FICImageCache sharedImageCache] imageExistsForEntity:profilePicture withFormatName:@"picture"];
-        if(!exists)
-            self.picture.image = [UIImage imageNamed:@"placeholder"];
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            if(!exists)
-                usleep(500000);
+        if(exists){
             if([self.identifier isEqualToString:(NSString *)message[@"identifier"]]){
                 [[FICImageCache sharedImageCache] retrieveImageForEntity:profilePicture withFormatName:@"picture" completionBlock:^(id<FICEntity> entity, NSString *formatName, UIImage *image) {
                     if([self.identifier isEqualToString:(NSString *)message[@"identifier"]]){
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            self.picture.image = image;
-                            self.picture.alpha = 1;
-                        });
+                        self.picture.image = image;
+                        self.picture.alpha = 1;
                     }
                 }];
             }
-        });
+        } else {
+            self.picture.image = [UIImage imageNamed:@"placeholder"];
+        }
     } else {
         self.point.alpha = 0;
+    }
+}
+
+- (void) loadImageswithMessageAndProfile:(NSArray *) objectData {
+    NSLog(@"%@", objectData);
+    NSDictionary *message  = [objectData objectAtIndex:0];
+    NSDictionary *profile = [objectData objectAtIndex:1];
+    
+    if([self.identifier isEqualToString:(NSString *)message[@"identifier"]]){
+        NexumProfilePicture *profilePicture = [[NexumProfilePicture alloc] init];
+        
+        profilePicture.identifier = profile[@"identifier"];
+        profilePicture.pictureURL = profile[@"picture"];
+        
+        [[FICImageCache sharedImageCache] retrieveImageForEntity:profilePicture withFormatName:@"picture" completionBlock:^(id<FICEntity> entity, NSString *formatName, UIImage *image) {
+            if([self.identifier isEqualToString:(NSString *)message[@"identifier"]]){
+                self.picture.image = image;
+            }
+        }];
     }
 }
 

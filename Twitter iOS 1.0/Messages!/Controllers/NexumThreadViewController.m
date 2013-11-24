@@ -138,6 +138,8 @@
     
     cell.identifier = message[@"identifier"];
     [cell reuseCell:(UIDeviceOrientationIsPortrait(self.interfaceOrientation)) withMessage:message andProfile:profile];
+    if(nil != profile)
+        [cell performSelector:@selector(loadImageswithMessageAndProfile:) withObject:[NSArray arrayWithObjects:message, profile, nil] afterDelay:0.1];
     
     return cell;
 }

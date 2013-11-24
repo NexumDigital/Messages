@@ -61,32 +61,8 @@
         self.infoPlaceholder.center = self.mainPlaceholder.center;
     }];
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        self.pictureData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.profile[@"picture"]]];
-        self.pictureImage = [UIImage imageWithData:self.pictureData];
-        self.pictureImage = [NexumUtil imageWithRoundedCornersSize:36.0 usingImage:self.pictureImage];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:1.0 animations:^(void) {
-                self.picture.image = self.pictureImage;
-            }];
-        });
-    });
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        if(![[NSString stringWithFormat:@"%@",self.profile[@"back"]] isEqualToString:@""]){
-            self.backData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.profile[@"back"]]];
-            self.backImage = [UIImage imageWithData:self.backData];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:1.0 animations:^(void) {
-                if(![[NSString stringWithFormat:@"%@",self.profile[@"back"]] isEqualToString:@""]){
-                    self.back.image = self.backImage;
-                }
-                self.back.alpha = 1;
-            }];
-        });
-    });
+    [self performSelector:@selector(loadProfileImage) withObject:nil afterDelay:0.1];
+    [self performSelector:@selector(loadBackImage) withObject:nil afterDelay:0.1];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -123,6 +99,7 @@
     NSDictionary *profile = [self.profiles objectAtIndex:indexPath.row];
     cell.identifier = profile[@"identifier"];
     [cell reuseCellWithProfile:profile];
+    [cell performSelector:@selector(loadImagesWithProfile:) withObject:profile afterDelay:0.1];
     
     if([self.profiles count] < (indexPath.row + 20)){
         if([NSNull null] != (NSNull *)self.page){
@@ -181,6 +158,30 @@
     self.page = @"0";
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView reloadData];
+}
+
+- (void) loadProfileImage {
+    NexumProfilePicture *profilePicture = [[NexumProfilePicture alloc] init];
+    
+    profilePicture.identifier = self.profile[@"identifier"];
+    profilePicture.pictureURL = self.profile[@"picture"];
+    
+    [[FICImageCache sharedImageCache] retrieveImageForEntity:profilePicture withFormatName:@"picture" completionBlock:^(id<FICEntity> entity, NSString *formatName, UIImage *image) {
+        [UIView animateWithDuration:1.0 animations:^(void) {
+            self.picture.image = image;
+        }];
+    }];
+}
+
+- (void) loadBackImage {
+    if(![[NSString stringWithFormat:@"%@",self.profile[@"back"]] isEqualToString:@""]){
+        self.backData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.profile[@"back"]]];
+        self.backImage = [UIImage imageWithData:self.backData];
+        [UIView animateWithDuration:1.0 animations:^(void) {
+            self.back.image = self.backImage;
+            self.back.alpha = 1;
+        }];
+    }
 }
 
 @end

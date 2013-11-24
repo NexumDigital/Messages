@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSDictionary *nextProfile;
 
 @property (assign, nonatomic) BOOL isLoading;
+@property (assign, nonatomic) double lastCellRequest;
 @property (strong, nonatomic) NSString *path;
 @property (strong, nonatomic) NSString *query;
 @property (strong, nonatomic) NSString *page;

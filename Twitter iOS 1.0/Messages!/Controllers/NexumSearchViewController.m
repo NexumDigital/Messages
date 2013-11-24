@@ -74,6 +74,7 @@
     NSDictionary *profile = [self.profiles objectAtIndex:indexPath.row];
     cell.identifier = profile[@"identifier"];
     [cell reuseCellWithProfile:profile];
+    [cell performSelector:@selector(loadImagesWithProfile:) withObject:profile afterDelay:0.1];
     
     if([self.profiles count] < (indexPath.row + 20)){
         if([NSNull null] != (NSNull *)self.page){
