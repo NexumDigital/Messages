@@ -11,6 +11,8 @@
 @implementation NexumProfileCell
 
 - (void) reuseCellWithProfile: (NSDictionary *) profile {
+    self.loadImages = YES;
+    
     BOOL follower = [profile[@"follower"] boolValue];
     BOOL following = [profile[@"following"] boolValue];
     
@@ -36,6 +38,7 @@
     
     BOOL exists = [[FICImageCache sharedImageCache] imageExistsForEntity:profilePicture withFormatName:@"picture"];
     if(exists){
+        self.loadImages = NO;
         if([self.identifier isEqualToString:(NSString *)profile[@"identifier"]]){
             [[FICImageCache sharedImageCache] retrieveImageForEntity:profilePicture withFormatName:@"picture" completionBlock:^(id<FICEntity> entity, NSString *formatName, UIImage *image) {
                 if([self.identifier isEqualToString:(NSString *)profile[@"identifier"]]){
@@ -49,17 +52,19 @@
 }
 
 - (void) loadImagesWithProfile: (NSDictionary *) profile{
-    if([self.identifier isEqualToString:(NSString *)profile[@"identifier"]]){
-        NexumProfilePicture *profilePicture = [[NexumProfilePicture alloc] init];
-        
-        profilePicture.identifier = profile[@"identifier"];
-        profilePicture.pictureURL = profile[@"picture"];
-        
-        [[FICImageCache sharedImageCache] retrieveImageForEntity:profilePicture withFormatName:@"picture" completionBlock:^(id<FICEntity> entity, NSString *formatName, UIImage *image) {
-            if([self.identifier isEqualToString:(NSString *)profile[@"identifier"]]){
-                self.picture.image = image;
-            }
-        }];
+    if(self.loadImages){
+        if([self.identifier isEqualToString:(NSString *)profile[@"identifier"]]){
+            NexumProfilePicture *profilePicture = [[NexumProfilePicture alloc] init];
+            
+            profilePicture.identifier = profile[@"identifier"];
+            profilePicture.pictureURL = profile[@"picture"];
+            
+            [[FICImageCache sharedImageCache] retrieveImageForEntity:profilePicture withFormatName:@"picture" completionBlock:^(id<FICEntity> entity, NSString *formatName, UIImage *image) {
+                if([self.identifier isEqualToString:(NSString *)profile[@"identifier"]]){
+                    self.picture.image = image;
+                }
+            }];
+        }
     }
 }
 

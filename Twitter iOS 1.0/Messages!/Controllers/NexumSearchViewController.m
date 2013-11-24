@@ -18,7 +18,7 @@
     [super viewDidLoad];
     
     [self clearTable];
-    self.path = @"contacts/twitter/suggested";
+    self.path = @"contacts/suggested";
     
     self.searchBar.delegate = self;
 }
@@ -41,7 +41,7 @@
 - (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [self clearTable];
     [self.searchBar resignFirstResponder];
-    self.path = @"contacts/twitter/search";
+    self.path = @"contacts/search";
     self.query = searchBar.text;
     
     [self loadDataFromPath:self.path withPage:self.page andQuery:searchBar.text];

@@ -76,7 +76,7 @@
         self.isLoading = YES;
         
         NSString *params = [NSString stringWithFormat:@"identifier=%@", self.thread[@"identifier"]];
-        [NexumBackend apiRequest:@"GET" forPath:@"messages/twitter" withParams:params andBlock:^(BOOL success, NSDictionary *data) {
+        [NexumBackend apiRequest:@"GET" forPath:@"messages" withParams:params andBlock:^(BOOL success, NSDictionary *data) {
             if(success){
                 self.messages = [NSMutableArray arrayWithArray:data[@"messages_data"]] ;
                 self.profile = data[@"profile_data"];
@@ -185,7 +185,7 @@
     [self performSelectorOnMainThread:@selector(scrollToBottom) withObject:nil waitUntilDone:YES];
 
     NSString *params = [NSString stringWithFormat:@"identifier=%@&text=%@", self.profile[@"identifier"], [self.inputBar textValue]];
-    [NexumBackend apiRequest:@"POST" forPath:@"messages/twitter" withParams:params andBlock:^(BOOL success, NSDictionary *data) {}];
+    [NexumBackend apiRequest:@"POST" forPath:@"messages" withParams:params andBlock:^(BOOL success, NSDictionary *data) {}];
     [self.inputBar textClear];
 }
 

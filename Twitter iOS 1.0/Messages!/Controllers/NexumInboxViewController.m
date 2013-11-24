@@ -58,7 +58,7 @@
     if(!self.isLoading){
         self.isLoading = YES;
 
-        [NexumBackend apiRequest:@"GET" forPath:@"threads/twitter" withParams:@"" andBlock:^(BOOL success, NSDictionary *data) {
+        [NexumBackend apiRequest:@"GET" forPath:@"threads" withParams:@"" andBlock:^(BOOL success, NSDictionary *data) {
             if(success){
                 self.threads = data[@"threads_data"];
                 [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];

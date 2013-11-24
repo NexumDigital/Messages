@@ -11,6 +11,7 @@
 @implementation NexumMessageCell
 
 - (void) reuseCell:(BOOL)isPortrait withMessage:(NSDictionary *)message andProfile:(NSDictionary *)profile {
+    self.loadImages = YES;
     BOOL sent = [message[@"sent"] boolValue];
     
     self.backgroundColor = [UIColor clearColor];
@@ -108,6 +109,7 @@
         
         BOOL exists = [[FICImageCache sharedImageCache] imageExistsForEntity:profilePicture withFormatName:@"picture"];
         if(exists){
+            self.loadImages = NO;
             if([self.identifier isEqualToString:(NSString *)message[@"identifier"]]){
                 [[FICImageCache sharedImageCache] retrieveImageForEntity:profilePicture withFormatName:@"picture" completionBlock:^(id<FICEntity> entity, NSString *formatName, UIImage *image) {
                     if([self.identifier isEqualToString:(NSString *)message[@"identifier"]]){
@@ -120,26 +122,28 @@
             self.picture.image = [UIImage imageNamed:@"placeholder"];
         }
     } else {
+        self.loadImages = NO;
         self.point.alpha = 0;
     }
 }
 
 - (void) loadImageswithMessageAndProfile:(NSArray *) objectData {
-    NSLog(@"%@", objectData);
-    NSDictionary *message  = [objectData objectAtIndex:0];
-    NSDictionary *profile = [objectData objectAtIndex:1];
-    
-    if([self.identifier isEqualToString:(NSString *)message[@"identifier"]]){
-        NexumProfilePicture *profilePicture = [[NexumProfilePicture alloc] init];
+    if(self.loadImages){
+        NSDictionary *message  = [objectData objectAtIndex:0];
+        NSDictionary *profile = [objectData objectAtIndex:1];
         
-        profilePicture.identifier = profile[@"identifier"];
-        profilePicture.pictureURL = profile[@"picture"];
-        
-        [[FICImageCache sharedImageCache] retrieveImageForEntity:profilePicture withFormatName:@"picture" completionBlock:^(id<FICEntity> entity, NSString *formatName, UIImage *image) {
-            if([self.identifier isEqualToString:(NSString *)message[@"identifier"]]){
-                self.picture.image = image;
-            }
-        }];
+        if([self.identifier isEqualToString:(NSString *)message[@"identifier"]]){
+            NexumProfilePicture *profilePicture = [[NexumProfilePicture alloc] init];
+            
+            profilePicture.identifier = profile[@"identifier"];
+            profilePicture.pictureURL = profile[@"picture"];
+            
+            [[FICImageCache sharedImageCache] retrieveImageForEntity:profilePicture withFormatName:@"picture" completionBlock:^(id<FICEntity> entity, NSString *formatName, UIImage *image) {
+                if([self.identifier isEqualToString:(NSString *)message[@"identifier"]]){
+                    self.picture.image = image;
+                }
+            }];
+        }
     }
 }
 

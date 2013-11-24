@@ -9,7 +9,7 @@
 #ifndef Twitter_iOS_1_0_Constants_h
 #define Twitter_iOS_1_0_Constants_h
 
-#define BACKEND_URL @"http://dev.messages.nexum.ws/1.0/"
+#define BACKEND_URL @"http://dev.twitter.messages.nexum.ws/1.0/"
 
 #define C_4fdd86    colorWithRed:0.31 green:0.867 blue:0.525 alpha:1.0
 #define C_1ab4ef    colorWithRed:0.102 green:0.706 blue:0.937 alpha:1.0

@@ -17,6 +17,8 @@
 @property (strong, nonatomic) UIImageView *point;
 @property (strong, nonatomic) UIImageView *picture;
 
+@property (assign, nonatomic) BOOL loadImages;
+
 - (void) reuseCell:(BOOL)isPortrait withMessage: (NSDictionary *)message andProfile: (NSDictionary *)profile;
 - (void) loadImageswithMessageAndProfile:(NSArray *) objectData;
 

@@ -20,7 +20,7 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSString *endpoint = [NSString stringWithFormat:@"%@%@", BACKEND_URL, @"sessions/twitter"];
+    NSString *endpoint = [NSString stringWithFormat:@"%@%@", BACKEND_URL, @"sessions/auth"];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:endpoint]];
     [self.webview loadRequest:urlRequest];
 }
@@ -37,7 +37,7 @@
                             [urlGet objectForKey:@"oauth_verifier"]
                             ];
         
-        [NexumBackend apiRequest:@"POST" forPath:@"sessions/twitter" withParams:params andBlock:^(BOOL success, NSDictionary *data) {
+        [NexumBackend apiRequest:@"POST" forPath:@"sessions/auth" withParams:params andBlock:^(BOOL success, NSDictionary *data) {
             if(success){
                 [NexumDefaults addSession:data[@"id_session"]];
             }
@@ -47,7 +47,7 @@
 }
 
 - (IBAction)refreshAction:(id)sender {
-    NSString *endpoint = [NSString stringWithFormat:@"%@%@", BACKEND_URL, @"sessions/twitter"];
+    NSString *endpoint = [NSString stringWithFormat:@"%@%@", BACKEND_URL, @"sessions/auth"];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:endpoint]];
     [self.webview loadRequest:urlRequest];
 }

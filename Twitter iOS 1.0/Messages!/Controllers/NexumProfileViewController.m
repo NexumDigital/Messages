@@ -45,7 +45,7 @@
     }
     
     [self clearTable];
-    self.path = @"contacts/twitter/following";
+    self.path = @"contacts/following";
     self.followingButton.tintColor = [UIColor whiteColor];
     [self loadDataFromPath:self.path withPage:self.page];
 }
@@ -136,7 +136,7 @@
 
 - (IBAction)followingAction:(id)sender {
     [self clearTable];
-    self.path = @"contacts/twitter/following";
+    self.path = @"contacts/following";
     self.followersButton.tintColor = [UIColor C_22a1d9];
     self.followingButton.tintColor = [UIColor whiteColor];
     [self loadDataFromPath:self.path withPage:self.page];
@@ -144,7 +144,7 @@
 
 - (IBAction)followersAction:(id)sender {
     [self clearTable];
-    self.path = @"contacts/twitter/followers";
+    self.path = @"contacts/followers";
     self.followingButton.tintColor = [UIColor C_22a1d9];
     self.followersButton.tintColor = [UIColor whiteColor];
     [self loadDataFromPath:self.path withPage:self.page];

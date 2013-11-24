@@ -11,6 +11,7 @@
 @implementation NexumThreadCell
 
 - (void) reuseCellWithThread: (NSDictionary *) thread {
+    self.loadImages = YES;
     
     BOOL opened = [thread[@"opened"] boolValue];
     
@@ -31,6 +32,7 @@
     
     BOOL exists = [[FICImageCache sharedImageCache] imageExistsForEntity:profilePicture withFormatName:@"picture"];
     if(exists){
+        self.loadImages = NO;
         if([self.identifier isEqualToString:(NSString *)thread[@"identifier"]]){
             [[FICImageCache sharedImageCache] retrieveImageForEntity:profilePicture withFormatName:@"picture" completionBlock:^(id<FICEntity> entity, NSString *formatName, UIImage *image) {
                 if([self.identifier isEqualToString:(NSString *)thread[@"identifier"]]){
@@ -44,17 +46,19 @@
 }
 
 - (void) loadImagesWithThread: (NSDictionary *) thread{
-    if([self.identifier isEqualToString:(NSString *)thread[@"identifier"]]){
-        NexumProfilePicture *profilePicture = [[NexumProfilePicture alloc] init];
-        
-        profilePicture.identifier = thread[@"identifier"];
-        profilePicture.pictureURL = thread[@"picture"];
-        
-        [[FICImageCache sharedImageCache] retrieveImageForEntity:profilePicture withFormatName:@"picture" completionBlock:^(id<FICEntity> entity, NSString *formatName, UIImage *image) {
-            if([self.identifier isEqualToString:(NSString *)thread[@"identifier"]]){
-                self.picture.image = image;
-            }
-        }];
+    if(self.loadImages){
+        if([self.identifier isEqualToString:(NSString *)thread[@"identifier"]]){
+            NexumProfilePicture *profilePicture = [[NexumProfilePicture alloc] init];
+            
+            profilePicture.identifier = thread[@"identifier"];
+            profilePicture.pictureURL = thread[@"picture"];
+            
+            [[FICImageCache sharedImageCache] retrieveImageForEntity:profilePicture withFormatName:@"picture" completionBlock:^(id<FICEntity> entity, NSString *formatName, UIImage *image) {
+                if([self.identifier isEqualToString:(NSString *)thread[@"identifier"]]){
+                    self.picture.image = image;
+                }
+            }];
+        }
     }
 }
 

@@ -36,8 +36,8 @@
     profilePicture.family = @"profile";
     profilePicture.style = FICImageFormatStyle32BitBGRA;
     profilePicture.imageSize = CGSizeMake(73, 73);
-    profilePicture.maximumCount = 1280;
-    profilePicture.devices = FICImageFormatDevicePhone;
+    profilePicture.maximumCount = 5120;
+    profilePicture.devices = FICImageFormatDevicePhone | FICImageFormatDevicePad;
     
     NSArray *imageFormats = @[profilePicture];
     
@@ -45,7 +45,7 @@
     [sharedImageCache setFormats:imageFormats];
     [sharedImageCache setDelegate:self];
     
-    [sharedImageCache reset];
+    //[sharedImageCache reset];
     
     [Crashlytics startWithAPIKey:@"f3306f5f915daa17558ed40c9672f1d49830f4e2"];
     return YES;
