@@ -25,9 +25,9 @@
     CGRect viewFrame = self.frame;
     
     if(0 == y || screenWidth == y || screenHeight == y){
-        viewFrame.size.height = (screenHeight - 40);
+        viewFrame.size.height = screenHeight;
     } else {
-        viewFrame.size.height = (y - 40);
+        viewFrame.size.height = y;
     }
     
     if(animation){
@@ -42,10 +42,6 @@
     if(animation){
         [UIView commitAnimations];
     }
-}
-
--(void) reloadData {
-    [super reloadData];
 }
 
 @end

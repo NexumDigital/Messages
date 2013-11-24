@@ -15,6 +15,11 @@
 @property (strong, nonatomic) NSArray *threads;
 @property (strong, nonatomic) NSDictionary *nextThread;
 
-@property (strong, nonatomic) dispatch_queue_t imagesQueue;
+@property (assign, nonatomic) BOOL isLoading;
+
+- (void) loadData;
+- (void) clearTable;
+
+-(void) pushNotification:(NSNotification *)notification;
 
 @end

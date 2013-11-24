@@ -13,8 +13,10 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import <AudioToolbox/AudioToolbox.h>
     #import "Constants.h"
     #import "NexumBackend.h"
     #import "NexumDefaults.h"
     #import "NexumUtil.h"
+    #import "NexumProfilePicture.h"
 #endif

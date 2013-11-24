@@ -31,6 +31,19 @@
         [self.inputField setFont:[UIFont systemFontOfSize:16]];
         [self addSubview:self.inputField];
         
+        self.sendButton = [[UIButton alloc] initWithFrame:CGRectMake((screenWidth - 65), 0, 65, 40)];
+        self.sendButton.enabled = NO;
+        self.sendButton.titleLabel.font = [UIFont systemFontOfSize:16];
+        [self.sendButton setTitle:@"Send" forState:UIControlStateNormal];
+        [self.sendButton setTitleColor:[UIColor C_1ab4ef] forState:UIControlStateNormal];
+        [self.sendButton setTitleColor:[UIColor C_ccd6dd] forState:UIControlStateDisabled];
+        [self addSubview:self.sendButton];
+        
+        self.countLabel = [[UILabel alloc] initWithFrame:CGRectMake((screenWidth - 65), 5, 65, 20)];
+        self.countLabel.textAlignment = NSTextAlignmentCenter;
+        self.countLabel.font = [UIFont systemFontOfSize:12];
+        [self addSubview:self.countLabel];
+        
         self.inputField.delegate = self;
     }
 }
@@ -86,29 +99,62 @@
 
 #pragma mark - TextField actions
 
+- (NSString*) textValue {
+    return self.inputField.text;
+}
+
+- (void) textClear {
+    self.inputField.text = @"";
+    [self updateTextViewHeight:self.inputField WithAnimation:YES];
+}
+
 - (void) textViewDidChange:(UITextView *)textView {
     [self updateTextViewHeight:textView WithAnimation:YES];
 }
 
 - (void) updateTextViewHeight:(UITextView *)textView WithAnimation:(BOOL)animation {
+    int textLength = [textView.text length];
+    
+    if(0 < textLength && 140 > textLength){
+        self.sendButton.enabled = YES;
+    } else {
+        self.sendButton.enabled = NO;
+    }
+    
+    if(140 < textLength){
+        self.countLabel.textColor = [UIColor redColor];
+    } else{
+        self.countLabel.textColor = [UIColor C_666666];
+    }
+    
+    self.countLabel.text = [NSString stringWithFormat:@"%d", (140 - textLength)];
+    
     CGSize size = [self.inputField sizeThatFits:CGSizeMake((self.currentWidth - 75), FLT_MAX)];
     int numberOfLines = (size.height - 16)/self.inputField.font.lineHeight;
-    
-    if(8 < numberOfLines)
+        
+    if(8 < numberOfLines) {
         numberOfLines = 8;
+    }
+    
+    if(2 < numberOfLines){
+        self.countLabel.alpha = 1;
+    } else {
+        self.countLabel.alpha = 0;
+    }
     
     int newContentHeight;
-    if(1 < numberOfLines)
+    if(1 < numberOfLines){
         newContentHeight = (numberOfLines * self.inputField.font.lineHeight) + 13;
-    else
+    } else{
         newContentHeight = 30;
-        
+    }
     
     CGRect inputFrame = self.inputField.frame;
     
     if(inputFrame.size.height != newContentHeight){
         CGRect barFrame = self.frame;
         CGRect backgroundFrame = self.backgroundImage.frame;
+        CGRect sendFrame = self.sendButton.frame;
         
         barFrame.origin.y = barFrame.origin.y - ((newContentHeight + 10) - barFrame.size.height);
         barFrame.size.height = newContentHeight + 10;
@@ -116,6 +162,8 @@
         backgroundFrame.size.height = newContentHeight + 10;
         
         inputFrame.size.height = newContentHeight;
+        
+        sendFrame.origin.y = barFrame.size.height - self.sendButton.frame.size.height;
         
         if(animation){
             [UIView beginAnimations:nil context:nil];
@@ -127,6 +175,7 @@
         self.frame = barFrame;
         self.backgroundImage.frame = backgroundFrame;
         self.inputField.frame = inputFrame;
+        self.sendButton.frame = sendFrame;
         
         if(animation){
             [UIView commitAnimations];

@@ -22,6 +22,12 @@
 #define C_22a1d9    colorWithRed:0.133 green:0.631 blue:0.851 alpha:1.0
 #define C_74d2f6    colorWithRed:0.455 green:0.824 blue:0.965 alpha:1.0
 #define C_45d5ff    colorWithRed:0.271 green:0.835 blue:1 alpha:1.0
+#define C_d0f2ff    colorWithRed:0.816 green:0.949 blue:1 alpha:1.0
+#define C_74d2f6    colorWithRed:0.455 green:0.824 blue:0.965 alpha:1.0
+#define C_ccd6dd    colorWithRed:0.8 green:0.839 blue:0.867 alpha:1.0
+#define C_666666    colorWithRed:0.4 green:0.4 blue:0.4 alpha:1.0
+#define C_032636    colorWithRed:0.012 green:0.149 blue:0.212 alpha:1.0
+#define C_0aa4dd    colorWithRed:0.039 green:0.643 blue:0.867 alpha:1.0
 //#define C_f2d423    colorWithRed:0.949 green:0.831 blue:0.137 alpha:1.0
 //#define C_292f33    colorWithRed:0.161 green:0.184 blue:0.2 alpha:1.0
 

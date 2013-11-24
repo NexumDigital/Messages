@@ -17,23 +17,28 @@
 - (void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    if(nil != [NexumDefaults currentSession]){
-        NSString *params = [NSString stringWithFormat:@"id_session=%@&uiid=%@",
-                            [NexumDefaults currentSession],
-                            [[[[UIDevice alloc] init] identifierForVendor] UUIDString]
-                            ];
+    if(nil == [NexumDefaults currentSession]){
+        [self showLoginWebView];
+    } else {
+        NSString *uiid = [[[[UIDevice alloc] init] identifierForVendor] UUIDString];
+        NSString *params = [NSString stringWithFormat:@"id_session=%@&uiid=%@", [NexumDefaults currentSession], uiid];
         
         [NexumBackend apiRequest:@"POST" forPath:@"sessions" withParams:params andBlock:^(BOOL success, NSDictionary *data) {
             if(success){
                 [NexumDefaults addAccount:data[@"account_data"]];
+                [NexumBackend apiRequest:@"POST" forPath:@"workers/01" withParams:@"" andBlock:^(BOOL success, NSDictionary *data) {}];
+                [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound];
             } else {
                 [NexumDefaults addSession:nil];
+                [self performSelectorOnMainThread:@selector(showLoginWebView) withObject:nil waitUntilDone:YES];
             }
         }];
     }
-    
-    if(nil == [NexumDefaults currentSession])
-        [self performSegueWithIdentifier: @"showLogin" sender:self];
+        
+}
+
+-(void) showLoginWebView{
+    [self performSegueWithIdentifier: @"showLogin" sender:self];
 }
 
 @end

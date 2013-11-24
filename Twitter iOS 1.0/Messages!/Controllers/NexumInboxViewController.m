@@ -16,20 +16,26 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-    self.imagesQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
-    self.threads = [NSMutableArray array];
+    [self clearTable];
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    [NexumBackend apiRequest:@"GET" forPath:@"threads/twitter" withParams:@"" andBlock:^(BOOL success, NSDictionary *data) {
-        if(success){
-            self.threads = data[@"threads_data"];
-            [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
-        }
-    }];
+    [self loadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushNotification:) name:@"pushNotification" object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pushNotification" object:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -48,6 +54,20 @@
 
 #pragma mark - Table view data source
 
+- (void) loadData {
+    if(!self.isLoading){
+        self.isLoading = YES;
+
+        [NexumBackend apiRequest:@"GET" forPath:@"threads/twitter" withParams:@"" andBlock:^(BOOL success, NSDictionary *data) {
+            if(success){
+                self.threads = data[@"threads_data"];
+                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+                self.isLoading = NO;
+            }
+        }];
+    }
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -62,12 +82,24 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"InboxCell";
     NexumThreadCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
     NSDictionary *thread = [self.threads objectAtIndex:indexPath.row];
-    cell.expectedIdentifier = thread[@"identifier"];
-    [cell reuseCellWithThread:thread andQueue:self.imagesQueue];
-    
+    cell.identifier = thread[@"identifier"];
+    [cell reuseCellWithThread:thread];
     return cell;
+}
+
+- (void) clearTable {
+    self.threads = [NSMutableArray array];
+    self.isLoading = NO;
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.tableView reloadData];
+}
+
+#pragma mark - Push notification
+
+-(void) pushNotification:(NSNotification *)notification{
+    [self loadData];
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }
 
 @end

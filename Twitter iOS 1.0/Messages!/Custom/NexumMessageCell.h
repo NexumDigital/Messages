@@ -10,8 +10,12 @@
 
 @interface NexumMessageCell : UITableViewCell
 
-@property (strong, nonatomic) UITextView *messageView;
+@property (strong, nonatomic) NSString *identifier;
 
-- (void) reuseCell:(BOOL)isPortrait withMessage: (NSDictionary *)message andQueue:(dispatch_queue_t)queue;
+@property (strong, nonatomic) UIView *bubble;
+@property (strong, nonatomic) UITextView *message;
+@property (strong, nonatomic) UIImageView *point;
+@property (strong, nonatomic) UIImageView *picture;
 
+- (void) reuseCell:(BOOL)isPortrait withMessage: (NSDictionary *)message andProfile: (NSDictionary *)profile;
 @end

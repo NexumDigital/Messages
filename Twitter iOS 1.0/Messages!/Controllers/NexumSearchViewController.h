@@ -21,7 +21,6 @@
 @property (strong, nonatomic) NSString *path;
 @property (strong, nonatomic) NSString *query;
 @property (strong, nonatomic) NSString *page;
-@property (strong, nonatomic) dispatch_queue_t imagesQueue;
 
 - (void) loadDataFromPath:(NSString *)path withPage:(NSString *)page andQuery:(NSString *)query;
 - (void) clearTable;

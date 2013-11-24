@@ -15,18 +15,23 @@
 
 @property (strong, nonatomic) NSDictionary *thread;
 
-@property (strong, nonatomic) NSArray *messages;
+@property (strong, nonatomic) NSMutableArray *messages;
 @property (strong, nonatomic) NSDictionary *profile;
+@property (strong, nonatomic) NSDictionary *account;
 
-
-@property (strong, nonatomic) dispatch_queue_t imagesQueue;
+@property (assign, nonatomic) BOOL isLoading;
 @property (assign, nonatomic) BOOL animatingRotation;
+@property (assign, nonatomic) BOOL isFirstLoad;
 @property (assign, nonatomic) CGRect keyboardFrame;
+@property (strong, nonatomic) UITextView *sampleText;
 
 
 @property (weak, nonatomic) IBOutlet NexumInputBar *inputBar;
 @property (weak, nonatomic) IBOutlet NexumThreadTable *tableView;
 
+-(void) loadData;
 -(void) scrollToBottom;
+
+-(void) pushNotification:(NSNotification *)notification;
 
 @end

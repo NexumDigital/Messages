@@ -12,16 +12,13 @@
 
 @property (strong, nonatomic) NSString *identifier;
 
-@property (strong, nonatomic) NSString *expectedIdentifier;
 @property (strong, nonatomic) IBOutlet UIImageView *picture;
 @property (strong, nonatomic) IBOutlet UILabel *fullname;
 @property (strong, nonatomic) IBOutlet UILabel *username;
 @property (strong, nonatomic) IBOutlet UIButton *button;
 
-@property (strong, nonatomic) NSData *pictureData;
-@property (strong, nonatomic) UIImage *pictureImage;
+@property (strong, nonatomic) UIImage *fastImage;
 
-- (void) reuseCellWithProfile: (NSDictionary *) profile andQueue: (dispatch_queue_t) queue;
-- (void) pictureImageReady;
+- (void) reuseCellWithProfile: (NSDictionary *) profile;
 
 @end

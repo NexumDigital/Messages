@@ -37,13 +37,10 @@
 @property (assign, nonatomic) BOOL isLoading;
 @property (strong, nonatomic) NSString *path;
 @property (strong, nonatomic) NSString *page;
-@property (strong, nonatomic) dispatch_queue_t imagesQueue;
 
 - (IBAction)followingAction:(id)sender;
 - (IBAction)followersAction:(id)sender;
 
 - (void) clearTable;
-- (void) pictureImageReady;
-- (void) backImageReady;
 
 @end

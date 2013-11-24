@@ -19,7 +19,7 @@
     if([method isEqualToString:@"POST"]){
         endpoint = [NSString stringWithFormat:@"%@%@", BACKEND_URL, path];
         
-        NSData *HTTPBody = [params dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+        NSData *HTTPBody = [params dataUsingEncoding:NSUTF8StringEncoding];
         NSString *contentLength = [NSString stringWithFormat:@"%lu", (unsigned long)[HTTPBody length]];
         
         [URLRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];

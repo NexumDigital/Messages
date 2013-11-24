@@ -16,7 +16,6 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-    self.imagesQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
     [self clearTable];
     self.path = @"contacts/twitter/suggested";
@@ -24,8 +23,8 @@
     self.searchBar.delegate = self;
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
     
     [self loadDataFromPath:self.path withPage:self.page andQuery:self.query];
 }
@@ -73,8 +72,8 @@
     NexumProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     NSDictionary *profile = [self.profiles objectAtIndex:indexPath.row];
-    cell.expectedIdentifier = profile[@"identifier"];
-    [cell reuseCellWithProfile:profile andQueue:self.imagesQueue];
+    cell.identifier = profile[@"identifier"];
+    [cell reuseCellWithProfile:profile];
     
     if([self.profiles count] < (indexPath.row + 20)){
         if([NSNull null] != (NSNull *)self.page){

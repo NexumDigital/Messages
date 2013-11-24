@@ -16,14 +16,36 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.imagesQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
-    self.messages = [NSArray array];
+    self.title = self.thread[@"subtitle"];
+    
+    UIEdgeInsets inset = [self.tableView contentInset];
+    inset.bottom = 40;
+    self.tableView.contentInset = inset;
+    self.tableView.backgroundColor = [UIColor whiteColor];
+    self.tableView.alpha = 0;
+    
+    self.sampleText = [[UITextView alloc] init];
+    self.sampleText.editable = NO;
+    self.sampleText.scrollEnabled = NO;
+    self.sampleText.font = [UIFont systemFontOfSize:16];
+    self.sampleText.clipsToBounds = NO;
+    
+    self.isLoading = NO;
+    self.isFirstLoad = YES;
+    
+    self.messages = [[NSMutableArray alloc] init];
+    self.profile = [NSDictionary dictionary];
+    self.account = [NexumDefaults currentAccount];
     
     [self.inputBar initFrame:(UIDeviceOrientationIsPortrait(self.interfaceOrientation))];
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
+    [self.inputBar.sendButton addTarget:self action:@selector(sendMessage) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self loadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -31,15 +53,12 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adjustViewForKeyboardNotification:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adjustViewForKeyboardNotification:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushNotification:) name:@"pushNotification" object:nil];
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     
-    NSString *params = [NSString stringWithFormat:@"identifier=%@", self.thread[@"identifier"]];
-    [NexumBackend apiRequest:@"GET" forPath:@"messages/twitter" withParams:params andBlock:^(BOOL success, NSDictionary *data) {
-        if(success){
-            self.messages = data[@"messages_data"];
-            [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
-            [self performSelectorOnMainThread:@selector(scrollToBottom) withObject:nil waitUntilDone:YES];
-        }
-    }];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -47,6 +66,26 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pushNotification" object:nil];
+}
+
+#pragma mark - Data sources
+
+- (void) loadData {
+    if(!self.isLoading){
+        self.isLoading = YES;
+        
+        NSString *params = [NSString stringWithFormat:@"identifier=%@", self.thread[@"identifier"]];
+        [NexumBackend apiRequest:@"GET" forPath:@"messages/twitter" withParams:params andBlock:^(BOOL success, NSDictionary *data) {
+            if(success){
+                self.messages = [NSMutableArray arrayWithArray:data[@"messages_data"]] ;
+                self.profile = data[@"profile_data"];
+                [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+                [self performSelectorOnMainThread:@selector(scrollToBottom) withObject:nil waitUntilDone:YES];
+                self.isLoading = NO;
+            }
+        }];
+    }
 }
 
 #pragma mark - UITableView delegates
@@ -69,11 +108,10 @@
     }
     
     NSDictionary *message = [self.messages objectAtIndex:indexPath.row];
-    NSString *messageTextString = message[@"text"];
+    self.sampleText.text = message[@"text"];
+    CGSize messageSize = [self.sampleText sizeThatFits:CGSizeMake((screenWidth - 150), FLT_MAX)];
     
-    NSDictionary *stringAttributes = [NSDictionary dictionaryWithObject:[UIFont systemFontOfSize:16] forKey: NSFontAttributeName];
-    CGSize viewSize = [messageTextString boundingRectWithSize:CGSizeMake((screenWidth - 110), FLT_MAX) options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin attributes:stringAttributes context:nil].size;
-    return (viewSize.height +  25);
+    return (messageSize.height +  10);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -81,7 +119,25 @@
     NexumMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     NSDictionary *message = [self.messages objectAtIndex:indexPath.row];
-    [cell reuseCell:(UIDeviceOrientationIsPortrait(self.interfaceOrientation)) withMessage:message andQueue:self.imagesQueue];
+    NSDictionary *nextMessage = nil;
+    
+    if((indexPath.row + 1) < [self.messages count]){
+        nextMessage = [self.messages objectAtIndex:(indexPath.row + 1)];
+    }
+    
+    NSDictionary *profile = nil;
+    BOOL sent = [message[@"sent"] boolValue];
+    BOOL sentNext = [nextMessage[@"sent"] boolValue];
+    if(nil == nextMessage || sent != sentNext){
+        if(sent){
+            profile = self.account;
+        } else {
+            profile = self.profile;
+        }
+    }
+    
+    cell.identifier = message[@"identifier"];
+    [cell reuseCell:(UIDeviceOrientationIsPortrait(self.interfaceOrientation)) withMessage:message andProfile:profile];
     
     return cell;
 }
@@ -110,15 +166,62 @@
 
     [self.inputBar updateFrame:(UIDeviceOrientationIsPortrait(self.interfaceOrientation)) withOrigin:self.keyboardFrame.origin.y andAnimation:(!self.animatingRotation)];
     [self.tableView updateFrame:(UIDeviceOrientationIsPortrait(self.interfaceOrientation)) withOrigin:self.keyboardFrame.origin.y andAnimation:(!self.animatingRotation)];
+    [self scrollToBottom];
+}
+
+#pragma mark - Send button
+
+- (void) sendMessage {
+    NSMutableDictionary *newMessage = [NSMutableDictionary dictionary];
+    [newMessage setValue:[self.inputBar textValue] forKey:@"text"];
+    [newMessage setValue:[NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]] forKey:@"identifier"];
+    [newMessage setValue:[NSNumber numberWithBool:YES] forKey:@"sent"];
+    
+    [self.messages addObject:newMessage];
+    
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(scrollToBottom) withObject:nil waitUntilDone:YES];
+
+    NSString *params = [NSString stringWithFormat:@"identifier=%@&text=%@", self.profile[@"identifier"], [self.inputBar textValue]];
+    [NexumBackend apiRequest:@"POST" forPath:@"messages/twitter" withParams:params andBlock:^(BOOL success, NSDictionary *data) {}];
+    [self.inputBar textClear];
 }
 
 #pragma mark - Util
 
 -(void) scrollToBottom {
-    if(0 < [self.messages count]){
-        NSIndexPath* bottomIndex = [NSIndexPath indexPathForRow:([self.messages count]-1) inSection:0];
-        [self.tableView scrollToRowAtIndexPath:bottomIndex atScrollPosition:UITableViewScrollPositionTop animated:NO];
-        [self.tableView setNeedsLayout];
+    if(self.isFirstLoad){
+        int screenHeight;
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+        if(UIDeviceOrientationIsPortrait(self.interfaceOrientation)){
+            screenHeight = screenRect.size.height;
+        } else {
+            screenHeight = screenRect.size.width;
+        }
+        if(screenHeight < (self.tableView.contentSize.height + self.inputBar.frame.size.height + self.navigationController.navigationBar.frame.size.height)){
+            [self.tableView setContentOffset:CGPointMake(0, (self.tableView.contentSize.height - self.tableView.frame.size.height + self.inputBar.frame.size.height))];
+            [self.tableView setNeedsLayout];
+            
+        }
+        self.tableView.alpha = 1;
+        self.isFirstLoad = NO;
+    } else {
+        if(1 < [self.messages count]){
+            NSIndexPath* bottomIndex = [NSIndexPath indexPathForRow:([self.messages count]-1) inSection:0];
+            [self.tableView scrollToRowAtIndexPath:bottomIndex atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        }
+    }
+}
+
+#pragma mark - Push notification
+
+-(void) pushNotification:(NSNotification *)notification{
+    NSDictionary *data = notification.userInfo;
+    if([(NSString *)self.account[@"identifier"] isEqualToString:(NSString *)data[@"recipient"]]){
+        if([(NSString *)self.profile[@"identifier"] isEqualToString:(NSString *)data[@"sender"]]){
+            [self loadData];
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        }
     }
 }
 
