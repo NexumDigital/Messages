@@ -19,4 +19,5 @@
     #import "NexumDefaults.h"
     #import "NexumUtil.h"
     #import "NexumProfilePicture.h"
+    #import "NexumTwitter.h"
 #endif

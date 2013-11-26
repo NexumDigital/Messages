@@ -63,6 +63,8 @@
     CGRect viewFrame = self.frame;
     CGRect backgroundFrame = self.backgroundImage.frame;
     CGRect inputFrame = self.inputField.frame;
+    CGRect countFrame = self.countLabel.frame;
+    CGRect sendFrame = self.sendButton.frame;
    
     
     if(0 == y || screenWidth == y || screenHeight == y){
@@ -74,6 +76,8 @@
     viewFrame.size.width = screenWidth;
     backgroundFrame.size.width = screenWidth;
     inputFrame.size.width = (screenWidth - 75);
+    countFrame.origin.x = (screenWidth - 65);
+    sendFrame.origin.x = (screenWidth - 65);
     
     
     if(animation){
@@ -87,6 +91,8 @@
     self.frame = viewFrame;
     self.backgroundImage.frame = backgroundFrame;
     self.inputField.frame = inputFrame;
+    self.countLabel.frame = countFrame;
+    self.sendButton.frame = sendFrame;
     
     
     if(animation){

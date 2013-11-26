@@ -16,6 +16,7 @@
 
 @property (strong, nonatomic) NSMutableArray *profiles;
 @property (strong, nonatomic) NSDictionary *nextProfile;
+@property (strong, nonatomic) NSDictionary *nextThread;
 
 @property (assign, nonatomic) BOOL isLoading;
 @property (assign, nonatomic) double lastCellRequest;
@@ -25,5 +26,7 @@
 
 - (void) loadDataFromPath:(NSString *)path withPage:(NSString *)page andQuery:(NSString *)query;
 - (void) clearTable;
+
+- (IBAction)rowButtonAction:(UIButton *)sender;
 
 @end

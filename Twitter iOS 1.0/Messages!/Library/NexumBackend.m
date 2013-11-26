@@ -20,7 +20,7 @@
         endpoint = [NSString stringWithFormat:@"%@%@", BACKEND_URL, path];
         
         NSData *HTTPBody = [params dataUsingEncoding:NSUTF8StringEncoding];
-        NSString *contentLength = [NSString stringWithFormat:@"%lu", (unsigned long)[HTTPBody length]];
+        NSString *contentLength = [NSString stringWithFormat:@"%d", [HTTPBody length]];
         
         [URLRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
         [URLRequest setValue:contentLength forHTTPHeaderField:@"Content-Length"];

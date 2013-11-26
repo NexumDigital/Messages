@@ -15,7 +15,7 @@
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-    [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault];
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     [[UINavigationBar appearance] setBarTintColor:[UIColor C_1ab4ef_T]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
@@ -23,7 +23,7 @@
     [[UITableView appearance] setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     UIView *selectionColor = [[UIView alloc] init];
-    selectionColor.backgroundColor = [UIColor C_f8f8f8_T];
+    selectionColor.backgroundColor = [UIColor C_f8f8f8];
     [[UITableViewCell appearance] setSelectedBackgroundView:selectionColor];
     
     [[UITabBar appearance] setShadowImage:[[UIImage alloc] init]];
@@ -36,7 +36,7 @@
     profilePicture.family = @"profile";
     profilePicture.style = FICImageFormatStyle32BitBGRA;
     profilePicture.imageSize = CGSizeMake(73, 73);
-    profilePicture.maximumCount = 5120;
+    profilePicture.maximumCount = 1280;
     profilePicture.devices = FICImageFormatDevicePhone | FICImageFormatDevicePad;
     
     NSArray *imageFormats = @[profilePicture];
@@ -52,7 +52,7 @@
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application {
-    
+    application.applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)applicationm {

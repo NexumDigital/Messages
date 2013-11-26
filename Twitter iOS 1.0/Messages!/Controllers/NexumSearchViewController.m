@@ -33,6 +33,9 @@
     if([[segue identifier] isEqualToString:@"showProfile"]){
         NexumProfileViewController *profileView = [segue destinationViewController];
         profileView.profile = self.nextProfile;
+    } else if([[segue identifier] isEqualToString:@"showChat"]){
+        NexumThreadViewController *threadView = [segue destinationViewController];
+        threadView.thread = self.nextThread;
     }
 }
 
@@ -73,7 +76,7 @@
     
     NSDictionary *profile = [self.profiles objectAtIndex:indexPath.row];
     cell.identifier = profile[@"identifier"];
-    [cell reuseCellWithProfile:profile];
+    [cell reuseCellWithProfile:profile andRow:indexPath.row];
     [cell performSelector:@selector(loadImagesWithProfile:) withObject:profile afterDelay:0.1];
     
     if([self.profiles count] < (indexPath.row + 20)){
@@ -87,18 +90,11 @@
 
 #pragma mark - Load data
 
-- (IBAction)actionButton:(id)sender {
-}
-
 - (void) loadDataFromPath:(NSString *)path withPage:(NSString *)page andQuery:(NSString *)query{
     if(!self.isLoading){
         self.isLoading = YES;
         
-        NSString *params = [NSString stringWithFormat:@"identifier=%@&page=%@&query=%@",
-                            [NexumDefaults currentAccount][@"identifier"],
-                            page,
-                            query
-                            ];
+        NSString *params = [NSString stringWithFormat:@"identifier=%@&page=%@&query=%@", [NexumDefaults currentAccount][@"identifier"], page, query];
         
         [NexumBackend apiRequest:@"GET" forPath:path withParams:params andBlock:^(BOOL success, NSDictionary *data) {
             if(success){
@@ -108,6 +104,25 @@
             }
             self.isLoading = NO;
         }];
+    }
+}
+
+#pragma mark - Actions
+
+- (IBAction)rowButtonAction:(UIButton *)sender {
+    NSMutableDictionary *profile = [[self.profiles objectAtIndex:[(NexumProfileCell *)sender tag]] mutableCopy];
+    
+    BOOL follower = [profile[@"follower"] boolValue];
+    BOOL following = [profile[@"following"] boolValue];
+    
+    if((follower && following) || follower){
+        NSArray *data = [NSArray arrayWithObjects:profile[@"identifier"], [NSString stringWithFormat:@"@%@", profile[@"username"]], nil];
+        NSArray *keys = [NSArray arrayWithObjects:@"identifier", @"subtitle", nil];
+        
+        self.nextThread = [NSDictionary dictionaryWithObjects:data forKeys:keys];
+        [self performSegueWithIdentifier: @"showChat" sender:self];
+    } else {
+        [NexumTwitter postStatus:[NSString stringWithFormat:TW_INVITE, profile[@"username"]] onView:self];
     }
 }
 
@@ -121,5 +136,4 @@
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView reloadData];
 }
-
 @end

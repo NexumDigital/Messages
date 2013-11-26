@@ -16,9 +16,10 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
+    NSDictionary *currentAccount = [NexumDefaults currentAccount];
     
     if(nil == self.profile)
-        self.profile = [NexumDefaults currentAccount];
+        self.profile = currentAccount;
     else
         self.title = [NSString stringWithFormat:@"@%@", self.profile[@"username"]];
     
@@ -27,21 +28,22 @@
     self.description.numberOfLines = 0;
     self.description.text = self.profile[@"description"];
     BOOL follower = [self.profile[@"follower"] boolValue];
-    if(follower){
-        self.actionToolbar.barTintColor = [UIColor C_4fdd86];
+    BOOL following = [self.profile[@"following"] boolValue];
+    BOOL own = [self.profile[@"own"] boolValue];
+    if(own){
+        self.actionButton.backgroundColor = [UIColor C_ffdd1f];
         self.actionButton.tintColor = [UIColor whiteColor];
-        self.actionButton.title = @"chat";
+        [self.actionButton setTitle:@"become a sponsor" forState:UIControlStateNormal];
+    } else if((follower && following) || follower){
+        self.actionButton.backgroundColor = [UIColor C_4fdd86];
+        self.actionButton.tintColor = [UIColor whiteColor];
+        [self.actionButton setTitle:@"chat" forState:UIControlStateNormal];
     } else {
-        BOOL following = [self.profile[@"following"] boolValue];
-        if(following){
-            self.actionToolbar.barTintColor = [UIColor whiteColor];
-            self.actionButton.tintColor = [UIColor C_4fdd86];
-            self.actionButton.title = @"send chat request";
-        } else {
-            self.actionToolbar.barTintColor = [UIColor C_1ab4ef];
-            self.actionButton.tintColor = [UIColor whiteColor];
-            self.actionButton.title = @"follow";
-        }
+        self.actionButton.layer.borderColor = [UIColor C_4fdd86].CGColor;
+        self.actionButton.layer.borderWidth = 1.0;
+        self.actionButton.backgroundColor = [UIColor whiteColor];
+        self.actionButton.tintColor = [UIColor C_4fdd86];
+        [self.actionButton setTitle:@"invite to chat" forState:UIControlStateNormal];
     }
     
     [self clearTable];
@@ -57,7 +59,6 @@
     self.infoPlaceholder.frame = CGRectMake(self.infoPlaceholder.frame.origin.x, self.infoPlaceholder.frame.origin.y, self.infoPlaceholder.frame.size.width, (self.description.frame.size.height + 74));
     
     [UIView animateWithDuration:0.25 animations:^(void) {
-        self.backOverlay.alpha = 1;
         self.infoPlaceholder.center = self.mainPlaceholder.center;
     }];
     
@@ -66,7 +67,10 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
+    if([[segue identifier] isEqualToString:@"showChat"]){
+        NexumThreadViewController *threadView = [segue destinationViewController];
+        threadView.thread = self.nextThread;
+    }
 }
 
 #pragma mark - TableView delegate
@@ -91,14 +95,13 @@
     return [self.profiles count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"ProfileCell";
     NexumProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     NSDictionary *profile = [self.profiles objectAtIndex:indexPath.row];
     cell.identifier = profile[@"identifier"];
-    [cell reuseCellWithProfile:profile];
+    [cell reuseCellWithProfile:profile andRow:indexPath.row];
     [cell performSelector:@selector(loadImagesWithProfile:) withObject:profile afterDelay:0.1];
     
     if([self.profiles count] < (indexPath.row + 20)){
@@ -108,6 +111,23 @@
     }
     
     return cell;
+}
+
+#pragma mark - Keyboard notifications
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [self.description sizeToFit];
+    
+    self.infoPlaceholder.frame = CGRectMake(self.infoPlaceholder.frame.origin.x, self.infoPlaceholder.frame.origin.y, self.infoPlaceholder.frame.size.width, (self.description.frame.size.height + 74));
+    
+    [UIView animateWithDuration:0.25 animations:^(void) {
+        self.infoPlaceholder.center = self.mainPlaceholder.center;
+    }];
 }
 
 #pragma mark - Load data
@@ -134,6 +154,24 @@
 
 #pragma mark - Actions
 
+- (IBAction)dinamicAction:(id)sender {
+    BOOL follower = [self.profile[@"follower"] boolValue];
+    BOOL following = [self.profile[@"following"] boolValue];
+    BOOL own = [self.profile[@"own"] boolValue];
+    
+    if(own){
+        [self.tabBarController setSelectedIndex:0];
+    } else if((follower && following) || follower){
+        NSArray *data = [NSArray arrayWithObjects:self.profile[@"identifier"], [NSString stringWithFormat:@"@%@", self.profile[@"username"]], nil];
+        NSArray *keys = [NSArray arrayWithObjects:@"identifier", @"subtitle", nil];
+        
+        self.nextThread = [NSDictionary dictionaryWithObjects:data forKeys:keys];
+        [self performSegueWithIdentifier:@"showChat" sender:self];
+    } else {
+        [NexumTwitter postStatus:[NSString stringWithFormat:TW_INVITE, self.profile[@"username"]] onView:self];
+    }
+}
+
 - (IBAction)followingAction:(id)sender {
     [self clearTable];
     self.path = @"contacts/following";
@@ -148,6 +186,22 @@
     self.followingButton.tintColor = [UIColor C_22a1d9];
     self.followersButton.tintColor = [UIColor whiteColor];
     [self loadDataFromPath:self.path withPage:self.page];
+}
+
+- (IBAction)rowButtonAction:(id)sender {
+    NSMutableDictionary *profile = [[self.profiles objectAtIndex:[(NexumProfileCell *)sender tag]] mutableCopy];
+    
+    BOOL follower = [profile[@"follower"] boolValue];
+    BOOL following = [profile[@"following"] boolValue];
+    if((follower && following) || follower){
+        NSArray *data = [NSArray arrayWithObjects:profile[@"identifier"], [NSString stringWithFormat:@"@%@", profile[@"username"]], nil];
+        NSArray *keys = [NSArray arrayWithObjects:@"identifier", @"subtitle", nil];
+        
+        self.nextThread = [NSDictionary dictionaryWithObjects:data forKeys:keys];
+        [self performSegueWithIdentifier:@"showChat" sender:self];
+    } else {
+        [NexumTwitter postStatus:[NSString stringWithFormat:TW_INVITE, profile[@"username"]] onView:self];
+    }
 }
 
 #pragma mark - Helpers
@@ -179,6 +233,10 @@
         self.backImage = [UIImage imageWithData:self.backData];
         [UIView animateWithDuration:1.0 animations:^(void) {
             self.back.image = self.backImage;
+            self.back.alpha = 1;
+        }];
+    } else {
+        [UIView animateWithDuration:1.0 animations:^(void) {
             self.back.alpha = 1;
         }];
     }

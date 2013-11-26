@@ -19,7 +19,8 @@
 
 @property (assign, nonatomic) BOOL loadImages;
 
-- (void) reuseCellWithProfile: (NSDictionary *) profile;
-- (void) loadImagesWithProfile: (NSDictionary *) profile;
+- (void) reuseCellWithProfile:(NSDictionary *)profile andRow:(int)row;
+- (void) loadImagesWithProfile:(NSDictionary *)profile;
+- (NSDictionary *) thread;
 
 @end
