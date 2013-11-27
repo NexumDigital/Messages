@@ -43,8 +43,8 @@
 - (IBAction)followersAction:(id)sender;
 - (IBAction)rowButtonAction:(id)sender;
 
-- (void) clearTable;
-- (void) loadProfileImage;
-- (void) loadBackImage;
+- (void)clearTable;
+- (void)loadProfileImage;
+- (void)loadBackImage;
 
 @end

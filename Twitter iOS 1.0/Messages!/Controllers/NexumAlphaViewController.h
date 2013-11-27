@@ -11,6 +11,7 @@
 @interface NexumAlphaViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIWebView *webview;
+
 - (IBAction)refreshAction:(UIBarButtonItem *)sender;
 
 @end

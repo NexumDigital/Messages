@@ -19,7 +19,7 @@
 
 @property (assign, nonatomic) BOOL loadImages;
 
-- (void) reuseCell:(BOOL)isPortrait withMessage: (NSDictionary *)message andProfile: (NSDictionary *)profile;
-- (void) loadImageswithMessageAndProfile:(NSArray *) objectData;
+- (void)reuseCell:(BOOL)isPortrait withMessage:(NSDictionary *)message andProfile:(NSDictionary *)profile;
+- (void)loadImageswithMessageAndProfile:(NSArray *)objectData;
 
 @end

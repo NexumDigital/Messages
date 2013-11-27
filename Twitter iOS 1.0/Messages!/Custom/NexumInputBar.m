@@ -10,7 +10,7 @@
 
 @implementation NexumInputBar
 
-- (void) initFrame:(BOOL)isPortrait {
+- (void)initFrame:(BOOL)isPortrait {
     if (self) {
         int screenWidth;
         CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -48,7 +48,7 @@
     }
 }
 
-- (void) updateFrame:(BOOL)isPortrait withOrigin:(int)y andAnimation:(BOOL)animation{
+- (void)updateFrame:(BOOL)isPortrait withOrigin:(int)y andAnimation:(BOOL)animation {
     int screenWidth;
     int screenHeight;
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -105,20 +105,20 @@
 
 #pragma mark - TextField actions
 
-- (NSString*) textValue {
+- (NSString*)textValue {
     return self.inputField.text;
 }
 
-- (void) textClear {
+- (void)textClear {
     self.inputField.text = @"";
     [self updateTextViewHeight:self.inputField WithAnimation:YES];
 }
 
-- (void) textViewDidChange:(UITextView *)textView {
+- (void)textViewDidChange:(UITextView *)textView {
     [self updateTextViewHeight:textView WithAnimation:YES];
 }
 
-- (void) updateTextViewHeight:(UITextView *)textView WithAnimation:(BOOL)animation {
+- (void)updateTextViewHeight:(UITextView *)textView WithAnimation:(BOOL)animation {
     int textLength = [textView.text length];
     
     if(0 < textLength && 140 > textLength){

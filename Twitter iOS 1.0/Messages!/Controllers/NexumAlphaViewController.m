@@ -14,7 +14,7 @@
 
 @implementation NexumAlphaViewController
 
-- (void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://getmessages.tumblr.com"]];

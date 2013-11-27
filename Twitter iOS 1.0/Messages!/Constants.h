@@ -28,10 +28,5 @@
 #define C_032636    colorWithRed:0.012 green:0.149 blue:0.212 alpha:1.00
 #define C_0aa4dd    colorWithRed:0.039 green:0.643 blue:0.867 alpha:1.00
 #define C_ffdd1f    colorWithRed:1.000 green:0.867 blue:0.122 alpha:1.00
-//#define C_11749f    colorWithRed:0.067 green:0.455 blue:0.624 alpha:1.0
-//#define C_74d2f6    colorWithRed:0.455 green:0.824 blue:0.965 alpha:1.0
-//#define C_45d5ff    colorWithRed:0.271 green:0.835 blue:1 alpha:1.0
-//#define C_f2d423    colorWithRed:0.949 green:0.831 blue:0.137 alpha:1.0
-//#define C_292f33    colorWithRed:0.161 green:0.184 blue:0.2 alpha:1.0
 
 #endif

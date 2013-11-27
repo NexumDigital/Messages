@@ -14,11 +14,11 @@
 
 @implementation NexumLoginViewController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     self.webview.delegate = self;
 }
 
-- (void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     NSString *endpoint = [NSString stringWithFormat:@"%@%@", BACKEND_URL, @"sessions/auth"];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:endpoint]];
@@ -51,4 +51,5 @@
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:endpoint]];
     [self.webview loadRequest:urlRequest];
 }
+
 @end

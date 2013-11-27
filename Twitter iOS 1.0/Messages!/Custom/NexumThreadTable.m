@@ -10,7 +10,7 @@
 
 @implementation NexumThreadTable
 
-- (void) updateFrame:(BOOL)isPortrait withOrigin:(int)y andAnimation:(BOOL)animation{
+- (void)updateFrame:(BOOL)isPortrait withOrigin:(int)y andAnimation:(BOOL)animation{
     int screenWidth;
     int screenHeight;
     CGRect screenRect = [[UIScreen mainScreen] bounds];

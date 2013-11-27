@@ -14,7 +14,7 @@
 
 @implementation NexumSearchViewController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     [self clearTable];
@@ -41,7 +41,7 @@
 
 #pragma mark - SearchBar delegate
 
-- (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [self clearTable];
     [self.searchBar resignFirstResponder];
     self.path = @"contacts/search";
@@ -52,7 +52,7 @@
 
 #pragma mark - TableView delegate
 
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.nextProfile = [self.profiles objectAtIndex:indexPath.row];
     [self performSegueWithIdentifier: @"showProfile" sender:self];
 }
@@ -90,7 +90,7 @@
 
 #pragma mark - Load data
 
-- (void) loadDataFromPath:(NSString *)path withPage:(NSString *)page andQuery:(NSString *)query{
+- (void)loadDataFromPath:(NSString *)path withPage:(NSString *)page andQuery:(NSString *)query{
     if(!self.isLoading){
         self.isLoading = YES;
         
@@ -128,7 +128,7 @@
 
 #pragma mark - Helpers
 
-- (void) clearTable {
+- (void)clearTable {
     self.profiles = [NSMutableArray array];
     self.isLoading = NO;
     self.page = @"0";

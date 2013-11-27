@@ -20,7 +20,7 @@
 
 @property (assign, nonatomic) BOOL loadImages;
 
-- (void) reuseCellWithThread: (NSDictionary *) thread;
-- (void) loadImagesWithThread: (NSDictionary *) thread;
+- (void)reuseCellWithThread:(NSDictionary *)thread;
+- (void)loadImagesWithThread:(NSDictionary *)thread;
 
 @end

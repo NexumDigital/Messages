@@ -10,7 +10,7 @@
 
 @implementation NexumProfileCell
 
-- (void) reuseCellWithProfile: (NSDictionary *) profile andRow:(int)row{
+- (void)reuseCellWithProfile:(NSDictionary *)profile andRow:(int)row {
     self.loadImages = YES;
     
     BOOL follower = [profile[@"follower"] boolValue];
@@ -53,7 +53,7 @@
     }
 }
 
-- (void) loadImagesWithProfile: (NSDictionary *) profile{
+- (void)loadImagesWithProfile: (NSDictionary *) profile{
     if(self.loadImages){
         if([self.identifier isEqualToString:(NSString *)profile[@"identifier"]]){
             NexumProfilePicture *profilePicture = [[NexumProfilePicture alloc] init];
@@ -68,13 +68,6 @@
             }];
         }
     }
-}
-
-- (NSDictionary *) thread{
-    NSArray *data = [NSArray arrayWithObjects:self.identifier, self.username.text, nil];
-    NSArray *keys = [NSArray arrayWithObjects:@"identifier", @"subtitle", nil];
-    
-    return [NSDictionary dictionaryWithObjects:data forKeys:keys];
 }
 
 @end

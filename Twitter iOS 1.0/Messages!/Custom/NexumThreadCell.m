@@ -10,7 +10,7 @@
 
 @implementation NexumThreadCell
 
-- (void) reuseCellWithThread: (NSDictionary *) thread {
+- (void)reuseCellWithThread:(NSDictionary *)thread {
     self.loadImages = YES;
     
     BOOL opened = [thread[@"opened"] boolValue];
@@ -45,7 +45,7 @@
     }
 }
 
-- (void) loadImagesWithThread: (NSDictionary *) thread{
+- (void)loadImagesWithThread:(NSDictionary *)thread {
     if(self.loadImages){
         if([self.identifier isEqualToString:(NSString *)thread[@"identifier"]]){
             NexumProfilePicture *profilePicture = [[NexumProfilePicture alloc] init];

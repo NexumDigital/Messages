@@ -29,9 +29,9 @@
 @property (weak, nonatomic) IBOutlet NexumInputBar *inputBar;
 @property (weak, nonatomic) IBOutlet NexumThreadTable *tableView;
 
--(void) loadData;
--(void) scrollToBottom;
+- (void)loadData;
+- (void)scrollToBottom;
 
--(void) pushNotification:(NSNotification *)notification;
+- (void)pushNotification:(NSNotification *)notification;
 
 @end

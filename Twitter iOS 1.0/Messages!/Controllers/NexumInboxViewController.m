@@ -14,13 +14,13 @@
 
 @implementation NexumInboxViewController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     [self clearTable];
 }
 
-- (void)viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     [self loadData];
@@ -47,14 +47,14 @@
 
 #pragma mark - TableView delegate
 
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.nextThread = [self.threads objectAtIndex:indexPath.row];
     [self performSegueWithIdentifier: @"showChat" sender:self];
 }
 
 #pragma mark - Table view data source
 
-- (void) loadData {
+- (void)loadData {
     if(!self.isLoading){
         self.isLoading = YES;
 
@@ -89,7 +89,7 @@
     return cell;
 }
 
-- (void) clearTable {
+- (void)clearTable {
     self.threads = [NSMutableArray array];
     self.isLoading = NO;
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -98,7 +98,7 @@
 
 #pragma mark - Push notification
 
--(void) pushNotification:(NSNotification *)notification{
+- (void)pushNotification:(NSNotification *)notification{
     [self loadData];
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }

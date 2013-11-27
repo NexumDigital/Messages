@@ -56,7 +56,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushNotification:) name:@"pushNotification" object:nil];
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
 }
@@ -71,7 +71,7 @@
 
 #pragma mark - Data sources
 
-- (void) loadData {
+- (void)loadData {
     if(!self.isLoading){
         self.isLoading = YES;
         
@@ -98,7 +98,7 @@
     return [self.messages count];
 }
 
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     int screenWidth;
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     if(UIDeviceOrientationIsPortrait(self.interfaceOrientation)){
@@ -173,7 +173,7 @@
 
 #pragma mark - Send button
 
-- (void) sendMessage {
+- (void)sendMessage {
     NSMutableDictionary *newMessage = [NSMutableDictionary dictionary];
     [newMessage setValue:[self.inputBar textValue] forKey:@"text"];
     [newMessage setValue:[NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]] forKey:@"identifier"];
@@ -191,7 +191,7 @@
 
 #pragma mark - Util
 
--(void) scrollToBottom {
+-(void)scrollToBottom {
     if(self.isFirstLoad){
         int screenHeight;
         CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -217,7 +217,7 @@
 
 #pragma mark - Push notification
 
--(void) pushNotification:(NSNotification *)notification{
+-(void)pushNotification:(NSNotification *)notification{
     NSDictionary *data = notification.userInfo;
     if([(NSString *)self.account[@"identifier"] isEqualToString:(NSString *)data[@"recipient"]]){
         if([(NSString *)self.profile[@"identifier"] isEqualToString:(NSString *)data[@"sender"]]){

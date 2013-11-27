@@ -17,9 +17,9 @@
 
 @property (assign, nonatomic) BOOL isLoading;
 
-- (void) loadData;
-- (void) clearTable;
+- (void)loadData;
+- (void)clearTable;
 
--(void) pushNotification:(NSNotification *)notification;
+- (void)pushNotification:(NSNotification *)notification;
 
 @end

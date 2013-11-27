@@ -14,7 +14,7 @@
 
 @implementation NexumProfileViewController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     NSDictionary *currentAccount = [NexumDefaults currentAccount];
     
@@ -75,7 +75,7 @@
 
 #pragma mark - TableView delegate
 
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     NexumProfileViewController *dest = [storyboard instantiateViewControllerWithIdentifier:@"ProfileView"];
     dest.profile =[self.profiles objectAtIndex:indexPath.row];
@@ -132,7 +132,7 @@
 
 #pragma mark - Load data
 
-- (void) loadDataFromPath:(NSString *)path withPage:(NSString *)page {
+- (void)loadDataFromPath:(NSString *)path withPage:(NSString *)page {
     if(!self.isLoading){
         self.isLoading = YES;
         
@@ -206,7 +206,7 @@
 
 #pragma mark - Helpers
 
-- (void) clearTable {
+- (void)clearTable {
     self.profiles = [NSMutableArray array];
     self.isLoading = NO;
     self.page = @"0";
@@ -214,7 +214,7 @@
     [self.tableView reloadData];
 }
 
-- (void) loadProfileImage {
+- (void)loadProfileImage {
     NexumProfilePicture *profilePicture = [[NexumProfilePicture alloc] init];
     
     profilePicture.identifier = self.profile[@"identifier"];
@@ -227,7 +227,7 @@
     }];
 }
 
-- (void) loadBackImage {
+- (void)loadBackImage {
     if(![[NSString stringWithFormat:@"%@",self.profile[@"back"]] isEqualToString:@""]){
         self.backData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.profile[@"back"]]];
         self.backImage = [UIImage imageWithData:self.backData];

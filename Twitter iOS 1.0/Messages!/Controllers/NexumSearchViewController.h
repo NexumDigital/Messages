@@ -24,8 +24,8 @@
 @property (strong, nonatomic) NSString *query;
 @property (strong, nonatomic) NSString *page;
 
-- (void) loadDataFromPath:(NSString *)path withPage:(NSString *)page andQuery:(NSString *)query;
-- (void) clearTable;
+- (void)loadDataFromPath:(NSString *)path withPage:(NSString *)page andQuery:(NSString *)query;
+- (void)clearTable;
 
 - (IBAction)rowButtonAction:(UIButton *)sender;
 

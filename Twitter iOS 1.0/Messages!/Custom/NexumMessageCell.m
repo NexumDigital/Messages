@@ -10,7 +10,7 @@
 
 @implementation NexumMessageCell
 
-- (void) reuseCell:(BOOL)isPortrait withMessage:(NSDictionary *)message andProfile:(NSDictionary *)profile {
+- (void)reuseCell:(BOOL)isPortrait withMessage:(NSDictionary *)message andProfile:(NSDictionary *)profile {
     self.loadImages = YES;
     BOOL sent = [message[@"sent"] boolValue];
     
@@ -127,7 +127,7 @@
     }
 }
 
-- (void) loadImageswithMessageAndProfile:(NSArray *) objectData {
+- (void)loadImageswithMessageAndProfile:(NSArray *)objectData {
     if(self.loadImages){
         NSDictionary *message  = [objectData objectAtIndex:0];
         NSDictionary *profile = [objectData objectAtIndex:1];

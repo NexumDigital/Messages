@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface NexumLoginViewController : UIViewController <UIWebViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UIWebView *webview;
+
 - (IBAction)refreshAction:(id)sender;
 
 @end

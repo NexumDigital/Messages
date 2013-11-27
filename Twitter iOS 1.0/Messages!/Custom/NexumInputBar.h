@@ -22,7 +22,7 @@
 - (void)initFrame:(BOOL)isPortrait;
 - (void)updateFrame:(BOOL)isPortrait withOrigin:(int)y andAnimation:(BOOL)animation;
 - (void)updateTextViewHeight:(UITextView *)textView WithAnimation:(BOOL)animation;
-- (NSString*) textValue;
-- (void) textClear;
+- (NSString*)textValue;
+- (void)textClear;
 
 @end

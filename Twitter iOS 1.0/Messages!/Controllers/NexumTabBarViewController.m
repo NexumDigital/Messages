@@ -14,7 +14,7 @@
 
 @implementation NexumTabBarViewController
 
-- (void) viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
     if(nil == [NexumDefaults currentSession]){
@@ -36,7 +36,7 @@
     }
 }
 
--(void) showLoginWebView{
+- (void)showLoginWebView{
     [self performSegueWithIdentifier: @"showLogin" sender:self];
 }
 
